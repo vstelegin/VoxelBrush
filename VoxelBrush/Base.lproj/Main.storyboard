@@ -1,37 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="VoxelBrush" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="U0K-SW-4ec">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BrB-h1-WRS">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </arscnView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wq3-U3-f1q">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="gaa-ak-1dx">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PwU-fA-wyn" userLabel="SaveButton" customClass="RounderdButton" customModule="VoxelBrush" customModuleProvider="target">
+                                <rect key="frame" x="20" y="562" width="50" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="d5j-f5-fs3"/>
+                                    <constraint firstAttribute="height" constant="75" id="mZD-Bn-h5V"/>
+                                </constraints>
+                                <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="24"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="saveMesh" destination="BV1-FR-VrT" eventType="touchDown" id="eZS-hS-ct8"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RHH-zW-kWk" userLabel="DrawButton" customClass="RounderdButton" customModule="VoxelBrush" customModuleProvider="target">
+                                <rect key="frame" x="169.5" y="687" width="75" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="75" id="79h-uN-OvE"/>
+                                    <constraint firstAttribute="height" constant="75" id="JiP-5V-Jad"/>
+                                </constraints>
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="24"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="drawButtonPressed" destination="BV1-FR-VrT" eventType="touchDown" id="Uyq-dN-loh"/>
+                                    <action selector="drawButtonReleased" destination="BV1-FR-VrT" eventType="touchUpInside" id="0yb-zC-clu"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zlz-CM-rnR" userLabel="MeshButton" customClass="RounderdButton" customModule="VoxelBrush" customModuleProvider="target">
+                                <rect key="frame" x="20" y="687" width="50" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="P4Z-nY-liy"/>
+                                    <constraint firstAttribute="width" constant="50" id="dYX-8M-qkR"/>
+                                </constraints>
+                                <color key="tintColor" red="1" green="0.24256834320000001" blue="0.041704783299999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="24"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="voxelsToMesh" destination="BV1-FR-VrT" eventType="touchDown" id="MSI-K4-Fv6"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="GsS-dJ-CKf"/>
-                            <constraint firstItem="BrB-h1-WRS" firstAttribute="bottom" secondItem="fQZ-KI-GVf" secondAttribute="bottom" id="VpT-BR-CcM"/>
-                            <constraint firstItem="BrB-h1-WRS" firstAttribute="trailing" secondItem="fQZ-KI-GVf" secondAttribute="trailing" id="XyZ-9z-H8e"/>
-                            <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="U0K-SW-4ec" secondAttribute="top" id="rJc-2c-zQA"/>
+                            <constraint firstItem="zlz-CM-rnR" firstAttribute="top" secondItem="PwU-fA-wyn" secondAttribute="bottom" constant="50" id="4ip-B2-cx9"/>
+                            <constraint firstItem="BrB-h1-WRS" firstAttribute="centerY" secondItem="fQZ-KI-GVf" secondAttribute="centerY" id="A6F-SX-6t1"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="wq3-U3-f1q" secondAttribute="trailing" id="Htd-Gc-V0h"/>
+                            <constraint firstItem="zlz-CM-rnR" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" constant="20" id="Mda-uh-Oif"/>
+                            <constraint firstItem="RHH-zW-kWk" firstAttribute="centerX" secondItem="fQZ-KI-GVf" secondAttribute="centerX" id="S4d-rs-aVh"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="bottom" secondItem="RHH-zW-kWk" secondAttribute="bottom" constant="100" id="YjR-fQ-EZW"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="top" secondItem="wq3-U3-f1q" secondAttribute="top" constant="44" id="aXI-dB-f3Z"/>
+                            <constraint firstItem="BrB-h1-WRS" firstAttribute="height" secondItem="fQZ-KI-GVf" secondAttribute="height" id="boZ-NQ-HGn"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="bottom" secondItem="wq3-U3-f1q" secondAttribute="bottom" id="byB-80-dvy"/>
+                            <constraint firstItem="BrB-h1-WRS" firstAttribute="centerX" secondItem="fQZ-KI-GVf" secondAttribute="centerX" id="eoj-nG-MfH"/>
+                            <constraint firstItem="PwU-fA-wyn" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" constant="20" id="fgt-DL-duU"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="bottom" secondItem="zlz-CM-rnR" secondAttribute="bottom" constant="100" id="pP5-DN-Vhc"/>
+                            <constraint firstItem="wq3-U3-f1q" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="tKy-eh-JnC"/>
+                            <constraint firstItem="BrB-h1-WRS" firstAttribute="width" secondItem="fQZ-KI-GVf" secondAttribute="width" id="yxa-cx-mlg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="IVJ-dN-9jF" appends="YES" id="Px0-mi-9kr"/>
+                        </connections>
                     </view>
                     <connections>
+                        <outlet property="blurView" destination="wq3-U3-f1q" id="S9F-JU-2iD"/>
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="IVJ-dN-9jF">
+                    <connections>
+                        <action selector="tap" destination="BV1-FR-VrT" id="IGk-Yj-bCE"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="79.6875"/>
         </scene>
     </scenes>
 </document>
