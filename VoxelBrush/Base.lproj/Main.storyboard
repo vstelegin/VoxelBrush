@@ -29,72 +29,192 @@
                                 </view>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
-                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PwU-fA-wyn" userLabel="SaveButton" customClass="RounderdButton" customModule="VoxelBrush" customModuleProvider="target">
-                                <rect key="frame" x="20" y="562" width="50" height="75"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gnQ-2S-vlP" userLabel="EraseButton" customClass="RoundedButton" customModule="VoxelBrush" customModuleProvider="target">
+                                <rect key="frame" x="97" y="702" width="50" height="80"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="d5j-f5-fs3"/>
-                                    <constraint firstAttribute="height" constant="75" id="mZD-Bn-h5V"/>
+                                    <constraint firstAttribute="height" constant="80" identifier="drawButtonHeight" id="BDv-Qq-7bI"/>
+                                    <constraint firstAttribute="width" constant="50" identifier="drawButtonWidth" id="Mll-NT-xdf"/>
                                 </constraints>
-                                <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" red="0.96634548899999995" green="0.20591744779999999" blue="0.20591744779999999" alpha="0.25" colorSpace="custom" customColorSpace="displayP3"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="24"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="regularBorderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="highlightedBorderWidth">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="point" keyPath="highlightedScale">
+                                        <point key="value" x="8" y="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="eraseButtonPressed" destination="BV1-FR-VrT" eventType="touchDown" id="39H-2s-A06"/>
+                                    <action selector="eraseButtonReleased" destination="BV1-FR-VrT" eventType="touchUpInside" id="VXd-6X-fpp"/>
+                                    <action selector="eraseButtonReleased" destination="BV1-FR-VrT" eventType="touchUpOutside" id="kme-Xo-O9A"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S60-AT-5Is" userLabel="PlusButton" customClass="RoundedButton" customModule="VoxelBrush" customModuleProvider="target">
+                                <rect key="frame" x="267" y="702" width="50" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" identifier="drawButtonWidth" id="BF7-kt-1Jr"/>
+                                    <constraint firstAttribute="height" constant="35" identifier="drawButtonHeight" id="hj6-2U-eW1"/>
+                                </constraints>
+                                <color key="tintColor" white="0.5" alpha="0.25" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="➕"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="14"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="regularBorderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="highlightedBorderWidth">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="point" keyPath="highlightedScale">
+                                        <point key="value" x="5" y="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="plusButtonPressed" destination="BV1-FR-VrT" eventType="touchDown" id="1g4-AK-Wk4"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oTz-JU-6qc" userLabel="MinusButton" customClass="RoundedButton" customModule="VoxelBrush" customModuleProvider="target">
+                                <rect key="frame" x="267" y="747" width="50" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" identifier="drawButtonWidth" id="GFV-ch-36O"/>
+                                    <constraint firstAttribute="height" constant="35" identifier="drawButtonHeight" id="icY-ns-IOg"/>
+                                </constraints>
+                                <color key="tintColor" white="0.5" alpha="0.25" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="➖"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="14"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="regularBorderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="highlightedBorderWidth">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="point" keyPath="highlightedScale">
+                                        <point key="value" x="5" y="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="minusButtonPressed" destination="BV1-FR-VrT" eventType="touchDown" id="YV8-t3-EID"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PwU-fA-wyn" userLabel="SaveButton" customClass="RoundedButton" customModule="VoxelBrush" customModuleProvider="target">
+                                <rect key="frame" x="344" y="747" width="50" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="d5j-f5-fs3"/>
+                                    <constraint firstAttribute="height" constant="35" id="mZD-Bn-h5V"/>
+                                </constraints>
+                                <color key="tintColor" white="0.5" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="💾"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="14"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="point" keyPath="highlightedScale">
+                                        <point key="value" x="4" y="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
+                                        <color key="value" red="1" green="0.24256834320000001" blue="0.041704783299999999" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="saveMesh" destination="BV1-FR-VrT" eventType="touchDown" id="eZS-hS-ct8"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RHH-zW-kWk" userLabel="DrawButton" customClass="RounderdButton" customModule="VoxelBrush" customModuleProvider="target">
-                                <rect key="frame" x="169.5" y="687" width="75" height="75"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RHH-zW-kWk" userLabel="DrawButton" customClass="ScrollableButton" customModule="VoxelBrush" customModuleProvider="target">
+                                <rect key="frame" x="169.5" y="702" width="75" height="80"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="75" id="79h-uN-OvE"/>
-                                    <constraint firstAttribute="height" constant="75" id="JiP-5V-Jad"/>
+                                    <constraint firstAttribute="width" constant="75" identifier="drawButtonWidth" id="79h-uN-OvE"/>
+                                    <constraint firstAttribute="height" constant="80" identifier="drawButtonHeight" id="JiP-5V-Jad"/>
                                 </constraints>
-                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.20591744780540466" green="0.46937686204910278" blue="0.96634548902511597" alpha="0.25" colorSpace="custom" customColorSpace="displayP3"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="24"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="regularBorderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="highlightedBorderWidth">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="point" keyPath="highlightedScale">
+                                        <point key="value" x="10" y="10"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
+                                    <action selector="brushSizeChange" destination="BV1-FR-VrT" eventType="touchDragInside" id="9kE-q8-i03"/>
+                                    <action selector="brushSizeChange" destination="BV1-FR-VrT" eventType="touchDragOutside" id="iB6-mK-7bk"/>
                                     <action selector="drawButtonPressed" destination="BV1-FR-VrT" eventType="touchDown" id="Uyq-dN-loh"/>
                                     <action selector="drawButtonReleased" destination="BV1-FR-VrT" eventType="touchUpInside" id="0yb-zC-clu"/>
+                                    <action selector="drawButtonReleased" destination="BV1-FR-VrT" eventType="touchUpOutside" id="Z7P-tu-Q7V"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zlz-CM-rnR" userLabel="MeshButton" customClass="RounderdButton" customModule="VoxelBrush" customModuleProvider="target">
-                                <rect key="frame" x="20" y="687" width="50" height="75"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FHK-Dh-KXg" userLabel="ResetButton" customClass="RoundedButton" customModule="VoxelBrush" customModuleProvider="target">
+                                <rect key="frame" x="344" y="702" width="50" height="35"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="75" id="P4Z-nY-liy"/>
-                                    <constraint firstAttribute="width" constant="50" id="dYX-8M-qkR"/>
+                                    <constraint firstAttribute="width" constant="50" id="i9B-52-XiX"/>
+                                    <constraint firstAttribute="height" constant="35" id="xuo-gP-UO2"/>
                                 </constraints>
-                                <color key="tintColor" red="1" green="0.24256834320000001" blue="0.041704783299999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="0.5" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="❌"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="24"/>
+                                        <real key="value" value="14"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="point" keyPath="highlightedScale">
+                                        <point key="value" x="4" y="4"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="voxelsToMesh" destination="BV1-FR-VrT" eventType="touchDown" id="MSI-K4-Fv6"/>
+                                    <action selector="reset" destination="BV1-FR-VrT" eventType="touchDown" id="DDs-H4-cqJ"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="zlz-CM-rnR" firstAttribute="top" secondItem="PwU-fA-wyn" secondAttribute="bottom" constant="50" id="4ip-B2-cx9"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="centerY" secondItem="fQZ-KI-GVf" secondAttribute="centerY" id="A6F-SX-6t1"/>
+                            <constraint firstItem="gnQ-2S-vlP" firstAttribute="centerY" secondItem="RHH-zW-kWk" secondAttribute="centerY" id="HkN-IP-Xsg"/>
                             <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="wq3-U3-f1q" secondAttribute="trailing" id="Htd-Gc-V0h"/>
-                            <constraint firstItem="zlz-CM-rnR" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" constant="20" id="Mda-uh-Oif"/>
+                            <constraint firstItem="PwU-fA-wyn" firstAttribute="top" secondItem="FHK-Dh-KXg" secondAttribute="bottom" constant="10" id="NWd-7t-7hj"/>
                             <constraint firstItem="RHH-zW-kWk" firstAttribute="centerX" secondItem="fQZ-KI-GVf" secondAttribute="centerX" id="S4d-rs-aVh"/>
-                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="bottom" secondItem="RHH-zW-kWk" secondAttribute="bottom" constant="100" id="YjR-fQ-EZW"/>
+                            <constraint firstItem="S60-AT-5Is" firstAttribute="bottom" secondItem="oTz-JU-6qc" secondAttribute="top" constant="-10" id="VK8-fc-oCN"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="bottom" secondItem="oTz-JU-6qc" secondAttribute="bottom" constant="80" id="X2I-m2-NX4"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="bottom" secondItem="RHH-zW-kWk" secondAttribute="bottom" constant="80" identifier="drawButtonBottomDistance" id="YjR-fQ-EZW"/>
                             <constraint firstItem="fQZ-KI-GVf" firstAttribute="top" secondItem="wq3-U3-f1q" secondAttribute="top" constant="44" id="aXI-dB-f3Z"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="height" secondItem="fQZ-KI-GVf" secondAttribute="height" id="boZ-NQ-HGn"/>
                             <constraint firstItem="fQZ-KI-GVf" firstAttribute="bottom" secondItem="wq3-U3-f1q" secondAttribute="bottom" id="byB-80-dvy"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="centerX" secondItem="fQZ-KI-GVf" secondAttribute="centerX" id="eoj-nG-MfH"/>
-                            <constraint firstItem="PwU-fA-wyn" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" constant="20" id="fgt-DL-duU"/>
-                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="bottom" secondItem="zlz-CM-rnR" secondAttribute="bottom" constant="100" id="pP5-DN-Vhc"/>
+                            <constraint firstItem="PwU-fA-wyn" firstAttribute="trailing" secondItem="fQZ-KI-GVf" secondAttribute="trailing" constant="-20" id="fgt-DL-duU"/>
+                            <constraint firstItem="FHK-Dh-KXg" firstAttribute="centerX" secondItem="PwU-fA-wyn" secondAttribute="centerX" id="gdD-IC-0sK"/>
+                            <constraint firstItem="S60-AT-5Is" firstAttribute="centerX" secondItem="oTz-JU-6qc" secondAttribute="centerX" id="jAq-7j-jXI"/>
                             <constraint firstItem="wq3-U3-f1q" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="tKy-eh-JnC"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="bottom" secondItem="PwU-fA-wyn" secondAttribute="bottom" constant="80" id="tgc-nE-n9T"/>
+                            <constraint firstItem="oTz-JU-6qc" firstAttribute="centerX" secondItem="fQZ-KI-GVf" secondAttribute="centerX" constant="85" id="uG4-Ib-iZa"/>
+                            <constraint firstItem="gnQ-2S-vlP" firstAttribute="centerX" secondItem="fQZ-KI-GVf" secondAttribute="centerX" constant="-85" id="wnk-QX-vrV"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="width" secondItem="fQZ-KI-GVf" secondAttribute="width" id="yxa-cx-mlg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
@@ -104,6 +224,8 @@
                     </view>
                     <connections>
                         <outlet property="blurView" destination="wq3-U3-f1q" id="S9F-JU-2iD"/>
+                        <outlet property="drawButton" destination="RHH-zW-kWk" id="K9e-FY-Abj"/>
+                        <outlet property="saveButton" destination="PwU-fA-wyn" id="a0y-LP-4Of"/>
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
                     </connections>
                 </viewController>

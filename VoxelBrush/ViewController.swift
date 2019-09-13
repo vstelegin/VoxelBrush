@@ -16,6 +16,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet var blurView: UIVisualEffectView!
+    @IBOutlet var saveButton : RoundedButton!
+    @IBOutlet var drawButton : ScrollableButton!
     var trackingStateIsNormal = false {
         didSet {
             guard self.trackingStateIsNormal != oldValue else{
@@ -39,31 +41,30 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     var cameraInfo = (pos : simd_float3(), dir : simd_float3())
+    var currentVoxelBrushPreset = [vector_int3]()
     var blurUIAnimator : UIViewPropertyAnimator?
-    
     var voxelMaterial = SCNMaterial()
+    var brushMaterial = SCNMaterial()
     var voxelMesh = MDLMesh()
-    let voxelArray = MDLVoxelArray()
-    let voxelSphere = SCNSphere(radius: 0.015)
+    var voxelArray = MDLVoxelArray()
+    let voxelSphere = SCNSphere(radius: 0.02)
     var isDrawing = false
-    
+    var isErasing = false
+    var isMeshing = false
     var voxelPositionChanged = false
-    var voxelsCentroid = simd_float3()
-    var voxelsMinBound = simd_float3(10,10,10)
+    var drawButtonAnimator : UIViewPropertyAnimator?
+    var root : SCNNode?
     var voxelPosition = simd_float3(){
         didSet{
             let difference = voxelPosition - oldValue
-            if simd_float3.dot (difference, difference) > 0.00001 {
+            if simd_float3.dot (difference, difference) > 0.00002 {
                 voxelPositionChanged = true
-                voxelsCentroid = (voxelsCentroid + (voxelPosition + oldValue) * 0.5) * 0.5
-                voxelsMinBound = min (voxelsMinBound, voxelPosition)
             } else {
                 voxelPositionChanged = false
                 voxelPosition = oldValue
             }
         }
     }
-    
     
     struct VoxelGridLocator {
         var node : SCNNode?
@@ -74,69 +75,160 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         if trackingStateIsNormal {
             voxelGridLocator.placed = !voxelGridLocator.placed
         }
+        root!.childNodes[3].isHidden = !root!.childNodes[3].isHidden
     }
-    @IBAction func voxelsToMesh(){
+    
+    @IBAction func reset(){
+        //let tempArray = MDLVoxelArray()
+        voxelArray.difference(with: voxelArray)
+        voxelsToMesh {
+            self.isMeshing = false
+        }
+    }
+    @IBAction func saveMesh(){
+        let asset = MDLAsset()
+        asset.add(voxelMesh)
+        let saveQueue = DispatchQueue(label: "File export")
+        saveQueue.async {
+            let path = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+            
+            let now = Date()
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "en_US")
+            formatter.dateFormat = "YYYY-MMMM-dd-HH-mm"
+            
+            let filePath = path.appendingPathComponent("\(formatter.string(from: now))").appendingPathExtension("usdc")
+            let fileManager = FileManager.default
+            do {
+                try fileManager.removeItem(at: filePath)
+            } catch {
+                print ("No file to delete")
+            }
+            do {
+                try asset.export(to: filePath)
+                DispatchQueue.main.async {
+                    self.saveButton.backgroundColor = UIColor(red: 0, green: 1, blue: 0, alpha: 0.25)
+                }
+                
+                print ("File saved")
+            } catch {
+                print ("Couldn't save the file")
+            }
+        }
+        
+    }
+    @IBAction func drawButtonPressed(){
+        isDrawing = true
+        drawButtonAnimator?.startAnimation()
+        SCNTransaction.animationDuration = 0.25
+        root!.childNodes[3].childNodes[1].scale = SCNVector3(1)
+    }
+    @IBAction func drawButtonReleased(){
+        SCNTransaction.animationDuration = 0.5
+        root!.childNodes[3].childNodes[1].scale = SCNVector3(0)
+        isDrawing = false
+    }
+    
+    @IBAction func eraseButtonPressed(){
+        isErasing = true
+        brushMaterial.diffuse.contents = UIColor.red
+    }
+    
+    @IBAction func eraseButtonReleased(){
+        isErasing = false
+        brushMaterial.diffuse.contents = UIColor.white
+    }
+    
+    @IBAction func plusButtonPressed(){
+        VoxelBrushPeresets.shared.size += 1
+        currentVoxelBrushPreset = VoxelBrushPeresets.shared.spherical()
+    }
+    
+    @IBAction func minusButtonPressed(){
+        VoxelBrushPeresets.shared.size -= 1
+        currentVoxelBrushPreset = VoxelBrushPeresets.shared.spherical()
+        
+    }
+    
+    @IBAction func brushSizeChange(){
+        if drawButton.locationDifference != 0 {
+            
+            VoxelBrushPeresets.shared.size += drawButton.locationDifference
+            currentVoxelBrushPreset = VoxelBrushPeresets.shared.spherical()
+            
+            let scaleAdjust : Float = Float(VoxelBrushPeresets.shared.size) / Float(VoxelBrushPeresets.shared.sizeRange.last!)
+            root!.childNodes[3].scale = SCNVector3(scaleAdjust)
+            
+            
+        }
+    }
+    func voxelsToMesh (completion : @escaping () -> () ) {
+        self.isMeshing = true
         guard let voxelMesh = voxelArray.mesh(using: voxelMesh.allocator) else {
             print ("Couldn't create a mesh")
             return
         }
-
+        completion()
         let node = SCNNode(mdlObject: voxelMesh)
         node.geometry?.firstMaterial = voxelMaterial
         
-        //node.position = node.position - SCNVector3(10,10,10)
         let scene = sceneView.scene
-        scene.rootNode.childNodes[0].scale = SCNVector3(0.02,0.02,0.02)
-        let minBounds = voxelArray.boundingBox.minBounds
-        print (minBounds)
-        scene.rootNode.childNodes[0].position = SCNVector3(voxelsMinBound - simd_float3(0.03,0.03,0.03))
-        scene.rootNode.childNodes[0].geometry = node.geometry
+        scene.rootNode.childNodes[0].scale = SCNVector3(0.01)
+        let voxelArrayMinBounds = voxelArray.boundingBox.minBounds*0.01 - 50
+        scene.rootNode.childNodes[0].position = SCNVector3(voxelArrayMinBounds - simd_float3(0.02 , 0.02, 0.02))
+
+        root!.childNodes[0].geometry = node.geometry
         for child in scene.rootNode.childNodes[1].childNodes {
             child.removeFromParentNode()
         }
-//        voxelGridLocator.node?.childNodes[0].geometry = node.geometry
-        
-        print(voxelMesh.vertexCount)
+        self.voxelMesh = voxelMesh
+        DispatchQueue.main.async {
+            self.saveButton.backgroundColor = self.saveButton.tintColor
+        }
     }
     
-    @IBAction func saveMesh(){
-        let asset = MDLAsset(bufferAllocator: voxelMesh.allocator)
-        print (MDLAsset.canExportFileExtension("usdz"))
-    }
-    @IBAction func drawButtonPressed(){
-        isDrawing = true
-    }
-    @IBAction func drawButtonReleased(){
-        isDrawing = false
+    func voxelBrushArray(_ voxelPosition : simd_float3) -> MDLVoxelArray{
+        let voxelIndexPosition = ((voxelPosition + simd_float3(50,50,50)) * 100).toVectorInt_3()
+        let tempVoxelArray = MDLVoxelArray()
+        let tempVoxelIndices = currentVoxelBrushPreset
+        for brushPosition in tempVoxelIndices {
+            let index = MDLVoxelIndex(brushPosition + voxelIndexPosition,0)
+            tempVoxelArray.setVoxelAtIndex(index)
+        }
+        return tempVoxelArray
     }
     
-    func drawVoxel(){
+    func drawVoxel(delete : Bool = false){
         
-       
-        voxelPosition = cameraInfo.pos + cameraInfo.dir*0.4
+        voxelPosition = cameraInfo.pos + cameraInfo.dir * 0.4 + simd_float3(0,0.04,0)
         
         if voxelPositionChanged {
             let voxelNode = SCNNode(geometry: voxelSphere)
             
-            let voxelIndexPosition = ((voxelPosition + simd_float3(50,50,50)) * 50).toVectorInt_3()
+       
+            let tempVoxelArray = voxelBrushArray(voxelPosition)
+ 
+            if delete {
+                voxelArray.difference(with: tempVoxelArray)
+            } else {
+                voxelArray.union(with: tempVoxelArray)
+            }
             
-            let voxelIndex1 = MDLVoxelIndex(voxelIndexPosition.x, voxelIndexPosition.y,voxelIndexPosition.z,0)
-            let voxelIndex2 = MDLVoxelIndex(voxelIndexPosition.x + 1, voxelIndexPosition.y,voxelIndexPosition.z,0)
-            let voxelIndex3 = MDLVoxelIndex(voxelIndexPosition.x - 1, voxelIndexPosition.y,voxelIndexPosition.z,0)
-            let voxelIndex4 = MDLVoxelIndex(voxelIndexPosition.x, voxelIndexPosition.y + 1,voxelIndexPosition.z,0)
-            let voxelIndex5 = MDLVoxelIndex(voxelIndexPosition.x, voxelIndexPosition.y - 1,voxelIndexPosition.z,0)
-            let voxelIndex6 = MDLVoxelIndex(voxelIndexPosition.x, voxelIndexPosition.y,voxelIndexPosition.z + 1,0)
-            let voxelIndex7 = MDLVoxelIndex(voxelIndexPosition.x, voxelIndexPosition.y,voxelIndexPosition.z - 1,0)
-            voxelArray.setVoxelAtIndex(voxelIndex1)
-            voxelArray.setVoxelAtIndex(voxelIndex2)
-            voxelArray.setVoxelAtIndex(voxelIndex3)
-            voxelArray.setVoxelAtIndex(voxelIndex4)
-            voxelArray.setVoxelAtIndex(voxelIndex5)
-            voxelArray.setVoxelAtIndex(voxelIndex6)
-            voxelArray.setVoxelAtIndex(voxelIndex7)
-            voxelNode.position = SCNVector3(voxelPosition.x, voxelPosition.y, voxelPosition.z)
-            let scene = sceneView.scene.rootNode
-            scene.childNodes[1].addChildNode(voxelNode)
+            
+            voxelNode.position = SCNVector3(voxelPosition)
+            root!.childNodes[1].addChildNode(voxelNode)
+            
+            
+            if !isMeshing {
+                isMeshing = true
+                let meshingQueue = DispatchQueue(label: "Meshing")
+                meshingQueue.asyncAfter(deadline: .now() + 0.05) {
+                    self.voxelsToMesh{
+                        self.isMeshing = false
+                    }
+                }
+            }
+            
         }
     }
     
@@ -151,23 +243,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         cameraInfo.pos = simd_float3(pointOfView.position.x, pointOfView.position.y, pointOfView.position.z)
         
     }
+    
+    // MARK: VIEWDIDLOAD
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Set the view's delegate
         sceneView.delegate = self
         
-        // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
-        //sceneView.debugOptions = [ .showFeaturePoints, .showWorldOrigin ]
-
-        //let timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(debugOutput), userInfo: nil, repeats: true)
-        //timer.tolerance = 0.1
+   
         let scene = SCNScene()
-        //let light = SCNLight()
-        scene.rootNode.addChildNode(SCNNode()) //Mesh Placeholder
-        scene.rootNode.addChildNode(SCNNode()) //Voxel Spheres Placeholder
-        //scene.rootNode.light = light
+        scene.rootNode.addChildNode(SCNNode()) // Mesh Placeholder
+        scene.rootNode.addChildNode(SCNNode()) // Voxel Spheres Placeholder
+        
         let plane = SCNNode(geometry: SCNPlane(width: 0.4, height: 0.4))
         plane.eulerAngles = SCNVector3(-CGFloat.pi*0.5,0,0)
         
@@ -180,21 +267,33 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         plane.geometry!.firstMaterial = brushUImaterial
         
         plane.addChildNode(SCNNode())
-        scene.rootNode.addChildNode(plane)
+        plane.isHidden = true
+        scene.rootNode.addChildNode(plane) // Model Transform Placeholder
         
         voxelMaterial = SCNMaterial()
         voxelMaterial.lightingModel = .physicallyBased
         voxelMaterial.diffuse.contents = UIColor.white
         voxelMaterial.roughness.contents = 0.3
         voxelMaterial.metalness.contents = 1
-        voxelSphere.firstMaterial = voxelMaterial
+        brushMaterial = voxelMaterial.copy() as! SCNMaterial
+        voxelSphere.firstMaterial = brushMaterial
+        
+        
+        let cursorNode = VoxelCursor.shared.createModel()
+        cursorNode.childNodes[0].geometry!.firstMaterial = voxelMaterial
+        scene.rootNode.addChildNode(SCNNode()) // Add cursor placeholder
+        scene.rootNode.childNodes[3].addChildNode(cursorNode)//Add cursor
+        scene.rootNode.childNodes[3].addChildNode(SCNNode(geometry: voxelSphere))
+        scene.rootNode.childNodes[3].childNodes[1].scale = SCNVector3(0)
+        scene.rootNode.addChildNode(SCNNode()) // Symmetry plane placeholder
         
         sceneView.scene = scene
-        //sceneView.autoenablesDefaultLighting = true
+        root = sceneView.scene.rootNode
         
+        currentVoxelBrushPreset = VoxelBrushPeresets.shared.spherical()
         
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -217,8 +316,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             let newPosition = SCNVector3(locatorPosition.x, locatorPosition.y - 0.5, locatorPosition.z)
             voxelGridLocator.node!.position = SCNVector3.lerp(voxelGridLocator.node!.position, newPosition, 0.1)
         }
-        if trackingStateIsNormal && isDrawing {
-            drawVoxel()
+        if trackingStateIsNormal {
+            
+            root!.childNodes[3].position = SCNVector3(cameraInfo.pos + cameraInfo.dir*0.4 + simd_float3(0,0.04,0))
+            
+            if isDrawing {
+                drawVoxel()
+            }
+            if isErasing {
+                drawVoxel(delete: true)
+            }
         }
     }
     
