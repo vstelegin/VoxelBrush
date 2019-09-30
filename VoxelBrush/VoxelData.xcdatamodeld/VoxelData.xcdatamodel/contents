@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14492.1" systemVersion="18G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14903" systemVersion="18G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="VoxelData" representedClassName="VoxelData" syncable="YES" codeGenerationType="class">
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="voxelArray" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="bboxMaxX" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="bboxMaxY" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="bboxMaxZ" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="bboxMinX" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="bboxMinY" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="bboxMinZ" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="voxelArrayIndices" optional="YES" attributeType="Binary"/>
     </entity>
     <elements>
-        <element name="VoxelData" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="VoxelData" positionX="-63" positionY="-18" width="128" height="163"/>
     </elements>
 </model>

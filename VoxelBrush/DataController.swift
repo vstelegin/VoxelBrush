@@ -10,8 +10,45 @@ import Foundation
 import CoreData
 
 class DataController {
-    let persistentContainer = NSPersistentContainer(name: "VoxelData")
+    let persistentContainer : NSPersistentContainer
+    var viewContext : NSManagedObjectContext {
+        return persistentContainer.viewContext
+    }
+    var backgroundContext : NSManagedObjectContext {
+        return persistentContainer.newBackgroundContext()
+    }
+    var voxelDataStored : VoxelData!
+    static let shared = DataController(modelName: "VoxelData")
     
-    static let shared = DataController()
+    init (modelName: String) {
+        persistentContainer = NSPersistentContainer(name: modelName)
+    }
     
+    func configureContexts(){
+        viewContext.automaticallyMergesChangesFromParent = true
+        backgroundContext.automaticallyMergesChangesFromParent = true
+        viewContext.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
+    }
+    
+    func load() {
+        persistentContainer.loadPersistentStores(completionHandler: {storeDescription, error in
+            guard error == nil else {
+                fatalError(error!.localizedDescription)
+            }
+        })
+    }
+    
+    func save(){
+        viewContext.performAndWait {
+            if self.viewContext.hasChanges{
+                do {
+                    try viewContext.save()
+                    print ("Data saved")
+                } catch {
+                    print("Failed to save context")
+                }
+            }
+        }
+    }
 }

@@ -65,16 +65,9 @@ class RoundedButton: UIButton {
         layer.borderWidth = regularBorderWidth
     }
     
-    override var isEnabled: Bool {
-        didSet {
-            backgroundColor = isEnabled ? tintColor : .gray
-        }
-    }
-    
     func highlightTint(_ on : Bool = false) {
         
         if let highlightColor = self.highlightColor?.cgColor {
-            print("Tinting ******")
             let tintAnimator = UIViewPropertyAnimator(duration: 0.25, curve: .easeInOut, animations: {
                 self.layer.backgroundColor = on ? highlightColor : self.tintColor.cgColor
             })

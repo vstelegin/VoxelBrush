@@ -13,12 +13,25 @@ extension Float {
         return (a - (a - b)*t)
     }
 }
+
+extension simd_quatf{
+    init (_ q : SCNQuaternion){
+        self.init(ix: q.x, iy: q.y, iz: q.z, r: q.w)
+    }
+}
 extension simd_float3{
+    static func / (left : simd_float3, right: Float) -> simd_float3{
+        return simd_float3(left.x / right, left.y / right, left.z / right)
+    }
     static func dot(_ a: simd_float3, _ b: simd_float3) -> simd_float1 {
         return a.x * b.x + a.y * b.y + a.z * b.z
     }
+    
     init (_ v : Float) {
         self.init (simd_float3(v, v, v))
+    }
+    init (_ v: SCNVector3) {
+        self.init (simd_float3(v.x,v.y,v.z))
     }
     func toVectorInt_3() -> vector_int3 {
         return vector_int3(Int32(self.x),Int32(self.y),Int32(self.z))
