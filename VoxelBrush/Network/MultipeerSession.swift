@@ -4,7 +4,8 @@
 //
 //  Created by Chase on 04/10/2019.
 //  Copyright © 2019 ViatcheslavTelegin. All rights reserved.
-//
+//  Copied from this example:
+//  https://developer.apple.com/documentation/arkit/creating_a_multiuser_ar_experience
 
 import MultipeerConnectivity
 
