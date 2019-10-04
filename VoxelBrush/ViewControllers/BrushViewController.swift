@@ -246,8 +246,6 @@ class BrushViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegat
     }
     
     @IBAction func symmetryButtonPressed(){
-        //symmetryButton.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2.0)
-        
         if symmetryMode {
             symmetryTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: {_ in
                 let feedback = UIImpactFeedbackGenerator()
@@ -471,20 +469,7 @@ class BrushViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegat
         }
   
     }
-    func session(_ session: ARSession, didFailWithError error: Error) {
-        // Present an error message to the user
-        
-    }
-    
-    func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay
-        
-    }
-    
-    func sessionInterruptionEnded(_ session: ARSession) {
-        // Reset tracking and/or remove existing anchors if consistent tracking is required
-        
-    }
+   
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let collectionViewController = segue.destination
@@ -653,14 +638,10 @@ class BrushViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegat
     }
     
     func updateCursorDistance(){
-//        let location = CGPoint(x: 0.5, y: 0.5)
-//        let hit = sceneView.hitTest(location, types: [.featurePoint])
-//        guard hit.count > 0 else {return}
         let hitDistance = pointCloudRayCast()
         if hitDistance > 0 {
             voxelCursorDistance = hitDistance
         }
-        
     }
     
     func pointCloudRayCast() -> Float{

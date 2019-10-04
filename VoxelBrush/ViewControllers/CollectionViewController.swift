@@ -16,7 +16,7 @@ class CollectionViewController : UIViewController {
     var isDeleting : Bool = false{
         didSet{
             for cell in collectionView.visibleCells {
-                cell.contentView.backgroundColor = isDeleting ? .red : .lightGray
+                cell.contentView.backgroundColor = isDeleting ? .red : .darkGray
             }
         }
     }
@@ -27,6 +27,7 @@ class CollectionViewController : UIViewController {
     
     @IBOutlet weak var collectionView : UICollectionView!
     @IBOutlet weak var deleteButton : UIButton!
+    
     @IBAction func addNewModel(){
         DataController.shared.id = Int32(DataController.shared.fetchedResultsController.fetchedObjects!.count + 1)
         needsReset = true

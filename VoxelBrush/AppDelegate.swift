@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AWSS3
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,10 +16,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+        self.initializeS3()
         DataController.shared.load()
         
         return true
+    }
+    
+    func initializeS3() {
+        let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USWest2,
+           identityPoolId:"us-west-2:bfd00461-47ab-4cf3-b70a-71ac9c0c46a0")
+
+        let configuration = AWSServiceConfiguration(region:.USWest2, credentialsProvider:credentialsProvider)
+
+        AWSServiceManager.default().defaultServiceConfiguration = configuration
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

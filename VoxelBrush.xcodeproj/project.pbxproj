@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -24,11 +24,13 @@
 		0689D0262320E260006E3141 /* VoxelData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0689D0242320E260006E3141 /* VoxelData.xcdatamodeld */; };
 		0689D0282320E33B006E3141 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689D0272320E33B006E3141 /* DataController.swift */; };
 		069A21322322525200A55D9C /* VoxelCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069A21312322525200A55D9C /* VoxelCursor.swift */; };
+		06D67C7B2347E6BD008E1D69 /* AWSS3Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D67C7A2347E6BD008E1D69 /* AWSS3Manager.swift */; };
 		06D9772C233EC2E1006A6D24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06D9772B233EC2E1006A6D24 /* Assets.xcassets */; };
 		06DAF9DA233ABC7800D1F650 /* 3DModels.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 06DAF9D9233ABC7800D1F650 /* 3DModels.scnassets */; };
 		06EC676E2346C3C500D11333 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EC676D2346C3C500D11333 /* RoundedView.swift */; };
 		06FF30DD2342D6E600575C02 /* SegueRightToLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FF30DC2342D6E600575C02 /* SegueRightToLeft.swift */; };
 		06FF30DF2342DBB900575C02 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FF30DE2342DBB900575C02 /* CollectionViewController.swift */; };
+		4576A14FCDF1A4054EEF018A /* Pods_VoxelBrush.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ED9099E815443F0B221C9C5 /* Pods_VoxelBrush.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,11 +55,15 @@
 		069A21312322525200A55D9C /* VoxelCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoxelCursor.swift; sourceTree = "<group>"; };
 		06D67C7823479587008E1D69 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		06D67C7923479D19008E1D69 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
+		06D67C7A2347E6BD008E1D69 /* AWSS3Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSS3Manager.swift; sourceTree = "<group>"; };
 		06D9772B233EC2E1006A6D24 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		06DAF9D9233ABC7800D1F650 /* 3DModels.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = 3DModels.scnassets; sourceTree = "<group>"; };
 		06EC676D2346C3C500D11333 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		06FF30DC2342D6E600575C02 /* SegueRightToLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueRightToLeft.swift; sourceTree = "<group>"; };
 		06FF30DE2342DBB900575C02 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		2DA844B363853C22ED8D7171 /* Pods-VoxelBrush.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoxelBrush.release.xcconfig"; path = "Target Support Files/Pods-VoxelBrush/Pods-VoxelBrush.release.xcconfig"; sourceTree = "<group>"; };
+		2ED9099E815443F0B221C9C5 /* Pods_VoxelBrush.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VoxelBrush.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7DE5C81CB08769EF86C21EA /* Pods-VoxelBrush.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoxelBrush.debug.xcconfig"; path = "Target Support Files/Pods-VoxelBrush/Pods-VoxelBrush.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4576A14FCDF1A4054EEF018A /* Pods_VoxelBrush.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +90,7 @@
 		06296224234765AD000181B2 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				06D67C7A2347E6BD008E1D69 /* AWSS3Manager.swift */,
 				0629621D23473383000181B2 /* MultipeerSession.swift */,
 				06296221234762D0000181B2 /* DataReceiver.swift */,
 			);
@@ -96,6 +104,8 @@
 				06D67C7923479D19008E1D69 /* LICENSE.md */,
 				06476F672317A51C007CA208 /* VoxelBrush */,
 				06476F662317A51C007CA208 /* Products */,
+				65D94367D8534FE8324B3EE2 /* Pods */,
+				37492573BA0C1DD93A9FFC10 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -159,6 +169,23 @@
 			path = SceneElements;
 			sourceTree = "<group>";
 		};
+		37492573BA0C1DD93A9FFC10 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2ED9099E815443F0B221C9C5 /* Pods_VoxelBrush.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		65D94367D8534FE8324B3EE2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F7DE5C81CB08769EF86C21EA /* Pods-VoxelBrush.debug.xcconfig */,
+				2DA844B363853C22ED8D7171 /* Pods-VoxelBrush.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -166,9 +193,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 06476F792317A520007CA208 /* Build configuration list for PBXNativeTarget "VoxelBrush" */;
 			buildPhases = (
+				7AA8A365BC643F42DAAF1BD5 /* [CP] Check Pods Manifest.lock */,
 				06476F612317A51C007CA208 /* Sources */,
 				06476F622317A51C007CA208 /* Frameworks */,
 				06476F632317A51C007CA208 /* Resources */,
+				95262270C50093D2291213BF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -226,6 +255,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7AA8A365BC643F42DAAF1BD5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VoxelBrush-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		95262270C50093D2291213BF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VoxelBrush/Pods-VoxelBrush-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VoxelBrush/Pods-VoxelBrush-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VoxelBrush/Pods-VoxelBrush-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		06476F612317A51C007CA208 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -243,6 +314,7 @@
 				061941AD231F3C9100E2969E /* TypeExtensions.swift in Sources */,
 				06296222234762D0000181B2 /* DataReceiver.swift in Sources */,
 				06296220234736D7000181B2 /* BrushViewController+Extensions.swift in Sources */,
+				06D67C7B2347E6BD008E1D69 /* AWSS3Manager.swift in Sources */,
 				0607AEE12344193A009B6572 /* VoxelBrushPresets.swift in Sources */,
 				06476F6D2317A51C007CA208 /* BrushViewController.swift in Sources */,
 				0629621E23473383000181B2 /* MultipeerSession.swift in Sources */,
@@ -392,6 +464,7 @@
 		};
 		06476F7A2317A520007CA208 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F7DE5C81CB08769EF86C21EA /* Pods-VoxelBrush.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -412,6 +485,7 @@
 		};
 		06476F7B2317A520007CA208 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2DA844B363853C22ED8D7171 /* Pods-VoxelBrush.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

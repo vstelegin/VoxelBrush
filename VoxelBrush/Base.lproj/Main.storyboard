@@ -426,8 +426,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label😀" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFj-3i-IYc">
-                                                    <rect key="frame" x="72.5" y="17.5" width="55" height="15"/>
+                                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="ueB-qi-FnG">
+                                                    <rect key="frame" x="0.0" y="1" width="200" height="2.5"/>
+                                                </progressView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFj-3i-IYc">
+                                                    <rect key="frame" x="10" y="17.5" width="180" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="jfr-av-mmj"/>
                                                     </constraints>
@@ -446,20 +449,44 @@
                                                         <action selector="shareButtonPressed" destination="iqu-tK-Fvc" eventType="touchDown" id="QHs-r8-WF5"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oFZ-1A-U0f" userLabel="UploadButton">
+                                                    <rect key="frame" x="125" y="10" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="1bm-bj-aCa"/>
+                                                        <constraint firstAttribute="width" constant="30" id="KJT-bp-Djw"/>
+                                                    </constraints>
+                                                    <state key="normal" image="arrow.up.doc" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="uploadButtonPressed" destination="iqu-tK-Fvc" eventType="touchDown" id="UY2-CF-LCb"/>
+                                                    </connections>
+                                                </button>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="1th-xr-Lvs">
+                                                    <rect key="frame" x="130" y="15" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="ueB-qi-FnG" secondAttribute="trailing" id="3ev-up-Xba"/>
+                                                <constraint firstItem="oFZ-1A-U0f" firstAttribute="centerY" secondItem="Oxq-lm-DZ2" secondAttribute="centerY" id="Bdm-Xi-kXQ"/>
                                                 <constraint firstItem="fFj-3i-IYc" firstAttribute="centerY" secondItem="Oxq-lm-DZ2" secondAttribute="centerY" id="C5d-WL-a4V"/>
+                                                <constraint firstItem="ueB-qi-FnG" firstAttribute="leading" secondItem="Oxq-lm-DZ2" secondAttribute="leading" id="JC3-nl-il3"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fFj-3i-IYc" secondAttribute="trailing" constant="5" id="NHY-Dk-LV9"/>
                                                 <constraint firstAttribute="trailing" secondItem="P4w-YV-oOU" secondAttribute="trailing" constant="5" id="QZ0-pg-9Ij"/>
                                                 <constraint firstItem="fFj-3i-IYc" firstAttribute="centerX" secondItem="Oxq-lm-DZ2" secondAttribute="centerX" id="SoV-ar-Zqi"/>
-                                                <constraint firstItem="fFj-3i-IYc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Oxq-lm-DZ2" secondAttribute="leading" constant="5" id="raa-V3-uVY"/>
+                                                <constraint firstItem="P4w-YV-oOU" firstAttribute="leading" secondItem="oFZ-1A-U0f" secondAttribute="trailing" constant="10" id="Twz-a9-kUi"/>
+                                                <constraint firstItem="1th-xr-Lvs" firstAttribute="centerY" secondItem="oFZ-1A-U0f" secondAttribute="centerY" id="UhH-gE-Zck"/>
+                                                <constraint firstItem="1th-xr-Lvs" firstAttribute="centerX" secondItem="oFZ-1A-U0f" secondAttribute="centerX" id="kbX-Ah-Wo9"/>
+                                                <constraint firstItem="ueB-qi-FnG" firstAttribute="top" secondItem="Oxq-lm-DZ2" secondAttribute="top" constant="1" id="oed-oA-htl"/>
+                                                <constraint firstItem="fFj-3i-IYc" firstAttribute="leading" secondItem="Oxq-lm-DZ2" secondAttribute="leading" constant="10" id="raa-V3-uVY"/>
                                                 <constraint firstItem="P4w-YV-oOU" firstAttribute="centerY" secondItem="Oxq-lm-DZ2" secondAttribute="centerY" id="w9M-L1-7Vh"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <connections>
+                                            <outlet property="activityIndicator" destination="1th-xr-Lvs" id="fkc-1s-gdD"/>
                                             <outlet property="cellView" destination="Oxq-lm-DZ2" id="lXs-M7-Rih"/>
                                             <outlet property="label" destination="fFj-3i-IYc" id="Zxb-Eb-Cia"/>
+                                            <outlet property="progressView" destination="ueB-qi-FnG" id="11R-2l-PAI"/>
+                                            <outlet property="uploadButton" destination="oFZ-1A-U0f" id="s69-6V-afi"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -523,11 +550,12 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FtD-8j-A8O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="J39-Hm-H1K" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="737.68115942028987" y="62.771739130434788"/>
+            <point key="canvasLocation" x="737.68115942028987" y="62.276785714285708"/>
         </scene>
     </scenes>
     <resources>
         <image name="arrow.right.arrow.left.square" catalog="system" width="64" height="56"/>
+        <image name="arrow.up.doc" catalog="system" width="56" height="64"/>
         <image name="arrowshape.turn.up.right.fill" catalog="system" width="64" height="52"/>
         <image name="folder" catalog="system" width="64" height="48"/>
         <image name="square.and.pencil" catalog="system" width="64" height="58"/>
