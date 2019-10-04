@@ -51,6 +51,8 @@
 		0689D0252320E260006E3141 /* VoxelData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VoxelData.xcdatamodel; sourceTree = "<group>"; };
 		0689D0272320E33B006E3141 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		069A21312322525200A55D9C /* VoxelCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoxelCursor.swift; sourceTree = "<group>"; };
+		06D67C7823479587008E1D69 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		06D67C7923479D19008E1D69 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		06D9772B233EC2E1006A6D24 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		06DAF9D9233ABC7800D1F650 /* 3DModels.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = 3DModels.scnassets; sourceTree = "<group>"; };
 		06EC676D2346C3C500D11333 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
@@ -90,6 +92,8 @@
 		06476F5C2317A51C007CA208 = {
 			isa = PBXGroup;
 			children = (
+				06D67C7823479587008E1D69 /* README.md */,
+				06D67C7923479D19008E1D69 /* LICENSE.md */,
 				06476F672317A51C007CA208 /* VoxelBrush */,
 				06476F662317A51C007CA208 /* Products */,
 			);
