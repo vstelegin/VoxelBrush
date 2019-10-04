@@ -8,9 +8,11 @@
         <attribute name="bboxMinY" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="bboxMinZ" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="URI"/>
         <attribute name="voxelArrayIndices" optional="YES" attributeType="Binary"/>
     </entity>
     <elements>
-        <element name="VoxelData" positionX="-63" positionY="-18" width="128" height="163"/>
+        <element name="VoxelData" positionX="-63" positionY="-18" width="128" height="193"/>
     </elements>
 </model>

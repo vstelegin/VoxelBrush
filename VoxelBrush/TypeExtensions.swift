@@ -43,6 +43,16 @@ extension vector_int3{
         return vector_int3(left.x + right.x, left.y + right.y, left.z + right.z)
     }
 }
+
+extension vector_float3{
+    init (_ x : Double) {
+        let xf = Float(x)
+        self.init (x: xf, y: xf, z: xf)
+    }
+    init (_ x : [Double]){
+        self.init (x: Float(x[0]), y: Float(x[1]), z: Float(x[2]))
+    }
+}
 extension SCNVector3{
     static func + (left: SCNVector3, right: SCNVector3) -> SCNVector3 {
         return SCNVector3(x: left.x+right.x, y: left.y+right.y, z: left.z+right.z)
@@ -88,5 +98,17 @@ extension CGPoint {
 extension MDLVoxelIndex {
     init (_ position: vector_int3, _ shell: Int32) {
         self.init (position.x, position.y, position.z, shell)
+    }
+}
+
+
+struct Bounds : Codable {
+    var minBound : [Double]?
+    var maxBound : [Double]?
+    var delete : Int?
+    init () {
+        self.minBound = [Double]()
+        self.maxBound = [Double]()
+        self.delete = 0
     }
 }

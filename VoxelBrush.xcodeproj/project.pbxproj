@@ -7,11 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0607AEE12344193A009B6572 /* VoxelBrushPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0607AEE02344193A009B6572 /* VoxelBrushPresets.swift */; };
+		0607AEE323452C2C009B6572 /* ModelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0607AEE223452C2C009B6572 /* ModelCell.swift */; };
 		061941AD231F3C9100E2969E /* TypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061941AC231F3C9100E2969E /* TypeExtensions.swift */; };
 		061941AF231F456000E2969E /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061941AE231F456000E2969E /* RoundedButton.swift */; };
+		0629621E23473383000181B2 /* MultipeerSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0629621D23473383000181B2 /* MultipeerSession.swift */; };
+		06296220234736D7000181B2 /* BrushViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0629621F234736D7000181B2 /* BrushViewController+Extensions.swift */; };
+		06296222234762D0000181B2 /* DataReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06296221234762D0000181B2 /* DataReceiver.swift */; };
 		063E128D233AFDA60059A657 /* PointCloudGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063E128C233AFDA60059A657 /* PointCloudGeometry.swift */; };
 		06476F692317A51C007CA208 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06476F682317A51C007CA208 /* AppDelegate.swift */; };
-		06476F6D2317A51C007CA208 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06476F6C2317A51C007CA208 /* ViewController.swift */; };
+		06476F6D2317A51C007CA208 /* BrushViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06476F6C2317A51C007CA208 /* BrushViewController.swift */; };
 		06476F702317A51C007CA208 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06476F6E2317A51C007CA208 /* Main.storyboard */; };
 		06476F752317A520007CA208 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06476F732317A520007CA208 /* LaunchScreen.storyboard */; };
 		0653F05A2329983E00042E50 /* ScrollableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0653F0592329983E00042E50 /* ScrollableButton.swift */; };
@@ -19,18 +24,25 @@
 		0689D0262320E260006E3141 /* VoxelData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0689D0242320E260006E3141 /* VoxelData.xcdatamodeld */; };
 		0689D0282320E33B006E3141 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689D0272320E33B006E3141 /* DataController.swift */; };
 		069A21322322525200A55D9C /* VoxelCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069A21312322525200A55D9C /* VoxelCursor.swift */; };
-		069A215C232838AB00A55D9C /* VoxelBrushPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069A215B232838AB00A55D9C /* VoxelBrushPresets.swift */; };
 		06D9772C233EC2E1006A6D24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06D9772B233EC2E1006A6D24 /* Assets.xcassets */; };
 		06DAF9DA233ABC7800D1F650 /* 3DModels.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 06DAF9D9233ABC7800D1F650 /* 3DModels.scnassets */; };
+		06EC676E2346C3C500D11333 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EC676D2346C3C500D11333 /* RoundedView.swift */; };
+		06FF30DD2342D6E600575C02 /* SegueRightToLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FF30DC2342D6E600575C02 /* SegueRightToLeft.swift */; };
+		06FF30DF2342DBB900575C02 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FF30DE2342DBB900575C02 /* CollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0607AEE02344193A009B6572 /* VoxelBrushPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VoxelBrushPresets.swift; path = ../../VoxelBrushPresets.swift; sourceTree = "<group>"; };
+		0607AEE223452C2C009B6572 /* ModelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelCell.swift; sourceTree = "<group>"; };
 		061941AC231F3C9100E2969E /* TypeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeExtensions.swift; sourceTree = "<group>"; };
 		061941AE231F456000E2969E /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		0629621D23473383000181B2 /* MultipeerSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerSession.swift; sourceTree = "<group>"; };
+		0629621F234736D7000181B2 /* BrushViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BrushViewController+Extensions.swift"; sourceTree = "<group>"; };
+		06296221234762D0000181B2 /* DataReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataReceiver.swift; sourceTree = "<group>"; };
 		063E128C233AFDA60059A657 /* PointCloudGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointCloudGeometry.swift; sourceTree = "<group>"; };
 		06476F652317A51C007CA208 /* VoxelBrush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoxelBrush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06476F682317A51C007CA208 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		06476F6C2317A51C007CA208 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		06476F6C2317A51C007CA208 /* BrushViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushViewController.swift; sourceTree = "<group>"; };
 		06476F6F2317A51C007CA208 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		06476F742317A520007CA208 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		06476F762317A520007CA208 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -38,10 +50,12 @@
 		06551AA62332C5E700798C5E /* GCD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCD.swift; sourceTree = "<group>"; };
 		0689D0252320E260006E3141 /* VoxelData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VoxelData.xcdatamodel; sourceTree = "<group>"; };
 		0689D0272320E33B006E3141 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
-		069A21312322525200A55D9C /* VoxelCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VoxelCursor.swift; path = ../VoxelCursor.swift; sourceTree = "<group>"; };
-		069A215B232838AB00A55D9C /* VoxelBrushPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoxelBrushPresets.swift; sourceTree = SOURCE_ROOT; };
+		069A21312322525200A55D9C /* VoxelCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoxelCursor.swift; sourceTree = "<group>"; };
 		06D9772B233EC2E1006A6D24 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		06DAF9D9233ABC7800D1F650 /* 3DModels.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = 3DModels.scnassets; sourceTree = "<group>"; };
+		06EC676D2346C3C500D11333 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
+		06FF30DC2342D6E600575C02 /* SegueRightToLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueRightToLeft.swift; sourceTree = "<group>"; };
+		06FF30DE2342DBB900575C02 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +69,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		062962232347659F000181B2 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				0689D0242320E260006E3141 /* VoxelData.xcdatamodeld */,
+				0689D0272320E33B006E3141 /* DataController.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		06296224234765AD000181B2 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				0629621D23473383000181B2 /* MultipeerSession.swift */,
+				06296221234762D0000181B2 /* DataReceiver.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		06476F5C2317A51C007CA208 = {
 			isa = PBXGroup;
 			children = (
@@ -74,17 +106,14 @@
 		06476F672317A51C007CA208 /* VoxelBrush */ = {
 			isa = PBXGroup;
 			children = (
-				0689D0242320E260006E3141 /* VoxelData.xcdatamodeld */,
-				069A215B232838AB00A55D9C /* VoxelBrushPresets.swift */,
-				069A21312322525200A55D9C /* VoxelCursor.swift */,
 				06476F682317A51C007CA208 /* AppDelegate.swift */,
-				06476F6C2317A51C007CA208 /* ViewController.swift */,
-				063E128C233AFDA60059A657 /* PointCloudGeometry.swift */,
+				062962232347659F000181B2 /* CoreData */,
+				06296224234765AD000181B2 /* Network */,
+				06FF30E0234417A900575C02 /* ViewControllers */,
+				06FF30E22344186600575C02 /* SceneElements */,
+				06FF30E12344181400575C02 /* UI */,
 				06551AA62332C5E700798C5E /* GCD.swift */,
-				0689D0272320E33B006E3141 /* DataController.swift */,
 				061941AC231F3C9100E2969E /* TypeExtensions.swift */,
-				061941AE231F456000E2969E /* RoundedButton.swift */,
-				0653F0592329983E00042E50 /* ScrollableButton.swift */,
 				06476F6E2317A51C007CA208 /* Main.storyboard */,
 				06476F732317A520007CA208 /* LaunchScreen.storyboard */,
 				06D9772B233EC2E1006A6D24 /* Assets.xcassets */,
@@ -92,6 +121,38 @@
 				06476F762317A520007CA208 /* Info.plist */,
 			);
 			path = VoxelBrush;
+			sourceTree = "<group>";
+		};
+		06FF30E0234417A900575C02 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				06476F6C2317A51C007CA208 /* BrushViewController.swift */,
+				0629621F234736D7000181B2 /* BrushViewController+Extensions.swift */,
+				06FF30DE2342DBB900575C02 /* CollectionViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		06FF30E12344181400575C02 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				061941AE231F456000E2969E /* RoundedButton.swift */,
+				0653F0592329983E00042E50 /* ScrollableButton.swift */,
+				06FF30DC2342D6E600575C02 /* SegueRightToLeft.swift */,
+				0607AEE223452C2C009B6572 /* ModelCell.swift */,
+				06EC676D2346C3C500D11333 /* RoundedView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		06FF30E22344186600575C02 /* SceneElements */ = {
+			isa = PBXGroup;
+			children = (
+				0607AEE02344193A009B6572 /* VoxelBrushPresets.swift */,
+				069A21312322525200A55D9C /* VoxelCursor.swift */,
+				063E128C233AFDA60059A657 /* PointCloudGeometry.swift */,
+			);
+			path = SceneElements;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,15 +229,22 @@
 			files = (
 				06551AA72332C5E700798C5E /* GCD.swift in Sources */,
 				0653F05A2329983E00042E50 /* ScrollableButton.swift in Sources */,
+				06FF30DD2342D6E600575C02 /* SegueRightToLeft.swift in Sources */,
 				061941AF231F456000E2969E /* RoundedButton.swift in Sources */,
 				0689D0282320E33B006E3141 /* DataController.swift in Sources */,
-				069A215C232838AB00A55D9C /* VoxelBrushPresets.swift in Sources */,
+				0607AEE323452C2C009B6572 /* ModelCell.swift in Sources */,
 				069A21322322525200A55D9C /* VoxelCursor.swift in Sources */,
 				063E128D233AFDA60059A657 /* PointCloudGeometry.swift in Sources */,
+				06EC676E2346C3C500D11333 /* RoundedView.swift in Sources */,
 				061941AD231F3C9100E2969E /* TypeExtensions.swift in Sources */,
-				06476F6D2317A51C007CA208 /* ViewController.swift in Sources */,
+				06296222234762D0000181B2 /* DataReceiver.swift in Sources */,
+				06296220234736D7000181B2 /* BrushViewController+Extensions.swift in Sources */,
+				0607AEE12344193A009B6572 /* VoxelBrushPresets.swift in Sources */,
+				06476F6D2317A51C007CA208 /* BrushViewController.swift in Sources */,
+				0629621E23473383000181B2 /* MultipeerSession.swift in Sources */,
 				0689D0262320E260006E3141 /* VoxelData.xcdatamodeld in Sources */,
 				06476F692317A51C007CA208 /* AppDelegate.swift in Sources */,
+				06FF30DF2342DBB900575C02 /* CollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,6 +393,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L694F8G6QJ;
 				INFOPLIST_FILE = VoxelBrush/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -343,6 +412,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L694F8G6QJ;
 				INFOPLIST_FILE = VoxelBrush/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

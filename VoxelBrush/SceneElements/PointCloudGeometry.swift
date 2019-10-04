@@ -29,15 +29,15 @@ class PointCloudGeometry {
         
         //let pointSize : CGFloat = 10
         let element = SCNGeometryElement(data: nil, primitiveType: .point, primitiveCount: points.count, bytesPerIndex: 0)
-        element.pointSize = 2
-        element.minimumPointScreenSpaceRadius = 3
+        element.pointSize = 3
+        element.minimumPointScreenSpaceRadius = 4
         element.maximumPointScreenSpaceRadius = 6
         
         let pointsGeometry = SCNGeometry(sources: [source], elements: [element])
         
         let material = SCNMaterial()
         material.diffuse.contents = UIColor.white
-        material.transparency = 0.5
+        material.transparency = 0.25
         material.isDoubleSided = true
         material.locksAmbientWithDiffuse = true
         pointsGeometry.firstMaterial = material

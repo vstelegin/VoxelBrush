@@ -11,41 +11,37 @@ import ARKit
 import SceneKit
 import SceneKit.ModelIO
 import CoreData
+import MultipeerConnectivity
 
-class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, NSFetchedResultsControllerDelegate {
+class BrushViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, NSFetchedResultsControllerDelegate {
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet var blurView: UIVisualEffectView!
     @IBOutlet var saveButton : RoundedButton!
     @IBOutlet var drawButton : ScrollableButton!
+    @IBOutlet var eraseButton : RoundedButton!
     @IBOutlet var symmetryButton : RoundedButton!
     @IBOutlet var undoButton : RoundedButton!
     @IBOutlet var snapButton : RoundedButton!
     @IBOutlet var restoreButton : UIButton!
+    @IBOutlet var plusButton : RoundedButton!
+    @IBOutlet var minusButton : RoundedButton!
+    @IBOutlet var resetButton : RoundedButton!
+    @IBOutlet var multiUserButton : UIButton!
     var trackingStateIsNormal = false {
         didSet {
             guard self.trackingStateIsNormal != oldValue else{
                 return
             }
-            
             if self.trackingStateIsNormal {
-                blurUIAnimator = UIViewPropertyAnimator(duration: 0.25, curve: .easeInOut){
-                    self.blurView.effect = nil
-                }
-                blurUIAnimator?.startAnimation()
+                animateUIAlpha(show: true)
             }
-            
             else {
-                self.blurView.effect = nil
-                blurUIAnimator = UIViewPropertyAnimator(duration: 0.25, curve: .easeInOut){
-                    self.blurView.effect = UIBlurEffect(style: .dark)
-                }
-                blurUIAnimator?.startAnimation()
+                animateUIAlpha(show: false)
             }
         }
     }
     var cameraInfo = (pos : simd_float3(), dir : simd_float3())
     var currentVoxelBrushPreset = [vector_int3]()
-    var blurUIAnimator : UIViewPropertyAnimator?
     var voxelMaterial = SCNMaterial()
     var brushMaterial = SCNMaterial()
     var deleteBrushMaterial = SCNMaterial()
@@ -93,7 +89,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, NS
     var voxelGridLocator = PlaceholderNode()
     var symmetryPlane = PlaceholderNode()
     let scaleFactor : Float = 0.02
-    var fetchedResultsController : NSFetchedResultsController<VoxelData>!
+    
+    var multipeerSession : MultipeerSession!
     @IBAction func tap(_ sender: UITapGestureRecognizer){
 //        if trackingStateIsNormal {
 //            voxelGridLocator.placed = !voxelGridLocator.placed
@@ -134,13 +131,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, NS
     }
     
     @IBAction func saveMesh(){
-        if let fecthedObjects = fetchedResultsController.fetchedObjects {
-            for object in fecthedObjects {
-                DataController.shared.viewContext.delete(object)
-            }
-        }
-        
         let voxelData = VoxelData(context: DataController.shared.viewContext)
+        voxelData.id = DataController.shared.id
         voxelData.voxelArrayIndices = voxelArray.voxelIndices()
         
         voxelData.bboxMinX = voxelArray.boundingBox.minBounds.x
@@ -151,21 +143,29 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, NS
         voxelData.bboxMaxY = voxelArray.boundingBox.maxBounds.y
         voxelData.bboxMaxZ = voxelArray.boundingBox.maxBounds.z
         
-        DataController.shared.save()
+        
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US")
+        formatter.dateFormat = "YYYYMMdd-HHmm"
+        //let now = Date()
+        //let date = "\(formatter.string(from: now))"
+        let fileName = "VoxelBrush\(voxelData.id)"
+        print ("ID : \(voxelData.id)")
+        voxelData.title = fileName
+        //voxelData.url = path.appendingPathComponent("\(fileName)").appendingPathExtension("usdz")
+            
+        let fileManager = FileManager.default
+        let path = try! fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        let filePath = path.appendingPathComponent("\(fileName)").appendingPathExtension("usd")
         
         let asset = MDLAsset()
-        asset.add(voxelMesh)
+        let exportMesh = voxelMesh
+        let subMesh = exportMesh.submeshes!.firstObject as! MDLSubmesh
+        subMesh.material = MDLMaterial(scnMaterial: voxelMaterial)
+        asset.add(exportMesh)
+//        print("Can export: \(MDLAsset.canExportFileExtension("usd"))")
         let saveQueue = DispatchQueue(label: "File export")
         saveQueue.async {
-            let path = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-            
-            let now = Date()
-            let formatter = DateFormatter()
-            formatter.locale = Locale(identifier: "en_US")
-            formatter.dateFormat = "YYYYMMdd-HHmm"
-            let fileName = "VB-\(formatter.string(from: now))"
-            let filePath = path.appendingPathComponent("\(fileName)").appendingPathExtension("usdc")
-            let fileManager = FileManager.default
             do {
                 try fileManager.removeItem(at: filePath)
             } catch {
@@ -181,13 +181,21 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, NS
                 print ("Couldn't save the file")
             }
             
-            let newFilePath = path.appendingPathComponent("\(fileName)").appendingPathExtension("usdz")
+            let newFilePath = path.appendingPathComponent("\(fileName)").appendingPathExtension("usd")
             
-            do {
-                try fileManager.moveItem(at: filePath, to: newFilePath)
-            } catch {
-                print ("Couldn't rename to .usdz")
+//            do {
+//                try fileManager.moveItem(at: filePath, to: newFilePath)
+//            } catch {
+//                print ("Couldn't rename to .usdz")
+//            }
+            
+            voxelData.url = newFilePath
+            DataController.shared.save()
+            DataController.shared.fetch()
+            DispatchQueue.main.async {
+                self.restoreButton.isEnabled = true
             }
+            
         }
     }
     @IBAction func drawButtonPressed(){
@@ -195,13 +203,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, NS
         drawButtonAnimator?.startAnimation()
         SCNTransaction.animationDuration = 0.25
         root!.childNodes[3].childNodes[1].scale = SCNVector3(1)
+        resetSaveButton()
     }
     @IBAction func drawButtonReleased(){
         SCNTransaction.animationDuration = 0.5
         root!.childNodes[3].childNodes[1].scale = SCNVector3(0)
         isDrawing = false
         updateHistory()
-        resetSaveButton()
         if let meshWorkingItem = GCD.shared.meshingWorkItem {
             meshWorkingItem.cancel()
         }
@@ -290,6 +298,200 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, NS
     }
     
     @IBAction func restore(){
+        resetSaveButton()
+        performSegue(withIdentifier: "showSavedFiles", sender: self)
+    }
+    
+    @IBAction func unwindToDrawing(segue: SegueRightToLeft){}
+    
+    @IBAction func shareSession(_ button: UIButton) {
+        sceneView.session.getCurrentWorldMap { worldMap, error in
+            guard let map = worldMap
+                else { print("Error: \(error!.localizedDescription)"); return }
+            guard let data = try? NSKeyedArchiver.archivedData(withRootObject: map, requiringSecureCoding: true)
+                else { fatalError("can't encode map") }
+            self.multipeerSession.sendToAllPeers(data)
+        }
+        
+    }
+    
+    var mapProvider: MCPeerID?
+    func receivedData(_ data: Data, from peer: MCPeerID){
+        do {
+            if let worldMap = try NSKeyedUnarchiver.unarchivedObject(ofClass: ARWorldMap.self, from: data) {
+                // Run the session with the received world map.
+                let configuration = ARWorldTrackingConfiguration()
+                configuration.planeDetection = .horizontal
+                configuration.environmentTexturing = .automatic
+                configuration.initialWorldMap = worldMap
+                sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+                // Remember who provided the map for showing UI feedback.
+                mapProvider = peer
+                return
+            }
+            
+            if let receivedVoxelIndices = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? Data {
+                DataReceiver.shared.receivedVoxelIndices = receivedVoxelIndices
+                return
+            }
+        } catch {
+            print("can't decode data received from \(peer)")
+        }
+        var delete = false
+        do {
+            let decoder = JSONDecoder()
+            debugPrint("Data: \(data)")
+            let receivedBounds = try decoder.decode(Bounds.self, from: data)
+            DataReceiver.shared.receivedBounds = receivedBounds
+            delete = receivedBounds.delete! > 0
+        } catch {
+            print ("can't decode JSON")
+        }
+        
+        if let receivedVoxelArray = DataReceiver.shared.voxelArrayFromReceivedData() {
+            if delete {
+                self.voxelArray.difference(with: receivedVoxelArray)
+            } else {
+                self.voxelArray.union(with: receivedVoxelArray)
+            }
+            meshingToQueue()
+        }
+        
+    }
+    
+    func shareVoxelArray(voxelIndices : Data, voxelArrayBBox :MDLAxisAlignedBoundingBox, _ delete : Int? = 0){
+        guard !multipeerSession.connectedPeers.isEmpty else {return}
+        guard let voxelIndicesForSending = try? NSKeyedArchiver.archivedData(withRootObject: voxelIndices, requiringSecureCoding: false)
+            else { fatalError("can't encode data") }
+        self.multipeerSession.sendToAllPeers(voxelIndicesForSending)
+        
+        var voxelArrayBounds = Bounds()
+        let encoder = JSONEncoder()
+        voxelArrayBounds.minBound?.append(Double(voxelArrayBBox.minBounds.x))
+        voxelArrayBounds.minBound?.append(Double(voxelArrayBBox.minBounds.y))
+        voxelArrayBounds.minBound?.append(Double(voxelArrayBBox.minBounds.z))
+        
+        voxelArrayBounds.maxBound?.append(Double(voxelArrayBBox.maxBounds.x))
+        voxelArrayBounds.maxBound?.append(Double(voxelArrayBBox.maxBounds.y))
+        voxelArrayBounds.maxBound?.append(Double(voxelArrayBBox.maxBounds.z))
+        voxelArrayBounds.delete = delete
+        guard let voxelArrayBoundsForSending = try? encoder.encode(voxelArrayBounds)
+        else { fatalError("can't encode data") }
+        self.multipeerSession.sendToAllPeers(voxelArrayBoundsForSending)
+    }
+    // MARK: View Did Load
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        sceneView.delegate = self
+        sceneView.session.delegate = self
+        sceneView.showsStatistics = true
+        
+        sceneSetup()
+        brushSizeChange()
+        DataController.shared.fetch()
+        DataController.shared.setNewID()
+        
+        if let _ = DataController.shared.voxelDataStored {
+            restoreButton.isEnabled = true
+        }
+        
+        multipeerSession = MultipeerSession(receivedDataHandler: receivedData)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Create a session configuration
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.environmentTexturing = .automatic
+        configuration.planeDetection = .horizontal
+        sceneView.session.run(configuration)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        sceneView.session.pause()
+    }
+    
+
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        updateCameraInfo()
+        let locatorPosition = cameraInfo.pos + cameraInfo.dir * simd_float3(1,0,1)
+        if !voxelGridLocator.placed {
+            let newPosition = SCNVector3(locatorPosition.x, locatorPosition.y - 0.5, locatorPosition.z)
+            voxelGridLocator.node!.position = SCNVector3.lerp(voxelGridLocator.node!.position, newPosition, 0.1)
+        }
+        
+        if trackingStateIsNormal {
+            if snapping {
+                updateCursorDistance()
+            }
+            root!.childNodes[3].position = SCNVector3(cameraInfo.pos + cameraInfo.dir * voxelCursorDistance + simd_float3(0,0.04,0))
+            if isDrawing {
+                drawVoxel()
+            }
+            if isErasing {
+                drawVoxel(delete: true)
+            }
+        }
+    }
+    
+    
+    func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
+        print("Tracking state: \(camera.trackingState)")
+        
+        switch camera.trackingState{
+        case .normal :
+            trackingStateIsNormal = true
+            break
+        default :
+            trackingStateIsNormal = false
+            break
+        }
+    }
+    
+    func session(_ session: ARSession, didUpdate frame: ARFrame) {
+        if snapping {
+            guard let featurePoints = frame.rawFeaturePoints else { return }
+            let featurePointsGeometry = PointCloudGeometry.pointCloudGeometry(for: featurePoints.points)
+            root!.childNodes[5].geometry = featurePointsGeometry
+        }
+        
+        switch frame.worldMappingStatus {
+        case .notAvailable, .limited:
+            multiUserButton.isHidden = true
+        case .extending:
+            multiUserButton.isHidden = multipeerSession.connectedPeers.isEmpty
+        case .mapped:
+            multiUserButton.isHidden = multipeerSession.connectedPeers.isEmpty
+        default:
+            break
+        }
+  
+    }
+    func session(_ session: ARSession, didFailWithError error: Error) {
+        // Present an error message to the user
+        
+    }
+    
+    func sessionWasInterrupted(_ session: ARSession) {
+        // Inform the user that the session has been interrupted, for example, by presenting an overlay
+        
+    }
+    
+    func sessionInterruptionEnded(_ session: ARSession) {
+        // Reset tracking and/or remove existing anchors if consistent tracking is required
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let collectionViewController = segue.destination
+        DataController.shared.fetchedResultsController.delegate = collectionViewController as? NSFetchedResultsControllerDelegate
+    }
+    
+    func loadFromStoredVoxelData(){
         guard let voxelDataObject = DataController.shared.voxelDataStored else {return}
         guard let voxelData = voxelDataObject.voxelArrayIndices else {
              print ("Couldn't load data from the voxel data object")
@@ -302,13 +504,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, NS
 
         voxelArray = MDLVoxelArray(data: voxelData, boundingBox: boundingBox, voxelExtent: 1)
         meshingToQueue()
-        let restoreButtonAnimation = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut, animations: {
-            self.restoreButton.alpha = 0
-        })
-        restoreButtonAnimation.startAnimation()
-        restoreButton.isEnabled = false
-        
     }
+    
     func brushSizeChange(_ difference : Int32 = 0){
         VoxelBrushPeresets.shared.size += difference
         currentVoxelBrushPreset = VoxelBrushPeresets.shared.spherical()
@@ -317,10 +514,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, NS
     }
     
     func meshingToQueue(){
-        
         GCD.shared.voxelQueue.async(flags: .barrier){
             self.voxelArrayForMeshing = MDLVoxelArray()
             self.voxelArrayForMeshing.union(with: self.voxelArray)
+            
             
             var cursorNodes = [SCNNode]()
             for node in self.root!.childNodes[1].childNodes {
@@ -331,10 +528,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, NS
             }
             GCD.shared.meshingQueue.async (execute: GCD.shared.meshingWorkItem!)
         }
-        
-        
-        
     }
+    
     func voxelsToMesh (_ voxelArray : MDLVoxelArray = MDLVoxelArray(), _ cursorNodes : [SCNNode] = [SCNNode]()) {
         
         guard let voxelMesh = voxelArray.mesh(using: nil) else {
@@ -352,7 +547,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, NS
         scene.rootNode.childNodes[0].position = SCNVector3(voxelArrayMinBounds - simd_float3(0.02 , 0.02, 0.02))
 
         root!.childNodes[0].geometry = node.geometry
-        
         
         self.voxelMesh = voxelMesh
         for child in cursorNodes {
@@ -401,10 +595,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, NS
             if delete {
                 GCD.shared.voxelQueue.async(flags: .barrier) {
                     self.voxelArray.difference(with: tempVoxelArray)
+                    self.shareVoxelArray(voxelIndices: tempVoxelArray.voxelIndices()!, voxelArrayBBox: tempVoxelArray.boundingBox, 1)
                 }
             } else {
                 GCD.shared.voxelQueue.async(flags: .barrier) {
                     self.voxelArray.union(with: tempVoxelArray)
+                    self.shareVoxelArray(voxelIndices: tempVoxelArray.voxelIndices()!, voxelArrayBBox: tempVoxelArray.boundingBox, 0)
                 }
             }
             
@@ -490,159 +686,25 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, NS
         return rayAdvance(points, rayDistance + distanceToPoint)
     }
     
-    
-    // MARK: View Did Load
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        sceneView.delegate = self
-        sceneView.session.delegate = self
-        
-        sceneView.showsStatistics = true
-        let scene = SCNScene()
-        scene.rootNode.addChildNode(SCNNode()) // Mesh Placeholder [0]
-        scene.rootNode.addChildNode(SCNNode()) // Cursor Voxel Spheres Placeholder [1]
-        
-        let plane = SCNNode(geometry: SCNPlane(width: 0.4, height: 0.4))
-        plane.eulerAngles = SCNVector3(-CGFloat.pi*0.5,0,0)
-        
-        voxelGridLocator.node = plane
-        
-        let brushUImaterial = SCNMaterial()
-        brushUImaterial.lightingModel = .constant
-        brushUImaterial.transparency = 0.2
-        brushUImaterial.diffuse.contents = UIColor.white
-        plane.geometry!.firstMaterial = brushUImaterial
-        
-        plane.addChildNode(SCNNode())
-        plane.isHidden = true
-        scene.rootNode.addChildNode(plane) // Model Transform Placeholder [2]
-        
-        voxelMaterial = SCNMaterial()
-        voxelMaterial.lightingModel = .physicallyBased
-        voxelMaterial.diffuse.contents = UIColor.white
-        voxelMaterial.roughness.contents = 0.3
-        voxelMaterial.metalness.contents = 1
-        brushMaterial = voxelMaterial.copy() as! SCNMaterial
-        deleteBrushMaterial = voxelMaterial.copy() as! SCNMaterial
-        deleteBrushMaterial.diffuse.contents = UIColor.red
-        voxelSphere.firstMaterial = brushMaterial
-        voxelEraseSphere.firstMaterial = deleteBrushMaterial
-        
-        let cursorNode = VoxelCursor.createModel()
-        cursorNode.childNodes[0].geometry!.firstMaterial = voxelMaterial
-        scene.rootNode.addChildNode(SCNNode()) // Add cursor placeholder [3]
-        scene.rootNode.childNodes[3].addChildNode(cursorNode)//Add cursor
-        scene.rootNode.childNodes[3].addChildNode(SCNNode(geometry: voxelSphere)) //Add cursor sphere
-        scene.rootNode.childNodes[3].childNodes[1].scale = SCNVector3(0)
-        
-        let symmetryPlane = SCNNode(geometry: SCNPlane(width: 0.004, height: 20.0))
-        symmetryPlane.geometry!.firstMaterial = brushUImaterial
-        scene.rootNode.addChildNode(SCNNode()) // Symmetry plane placeholder [4]
-        scene.rootNode.childNodes[4].isHidden = true
-        scene.rootNode.childNodes[4].addChildNode(symmetryPlane)
-        scene.rootNode.childNodes[4].childNodes[0].eulerAngles = SCNVector3(0,CGFloat.pi,0)
-        scene.rootNode.addChildNode(SCNNode()) // Feauture points node [5]
-        scene.rootNode.childNodes[5].isHidden = true
-        sceneView.scene = scene
-        root = sceneView.scene.rootNode
-        SCNTransaction.animationDuration = 0.25
-        currentVoxelBrushPreset = VoxelBrushPeresets.shared.spherical()
-        brushSizeChange()
-        
-        let fetchRequest : NSFetchRequest<VoxelData> = VoxelData.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "id", ascending: false)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest : fetchRequest, managedObjectContext: DataController.shared.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            print ("Fetch request coulnd't be performed")
-            return
+    func animateUIAlpha(show : Bool, _ duration: Float = 0.5){
+        let duration = TimeInterval(duration)
+        let uiAlphaAnimator = UIViewPropertyAnimator(duration: duration, curve: .easeInOut){
+            let alpha : CGFloat = show ? 1.0 : 0.0
+            self.saveButton.alpha = alpha
+            self.drawButton.alpha = alpha
+            self.eraseButton.alpha = alpha
+            self.symmetryButton.alpha = alpha
+            self.undoButton.alpha = alpha
+            self.snapButton.alpha = alpha
+            self.plusButton.alpha = alpha
+            self.minusButton.alpha = alpha
+            self.resetButton.alpha = alpha
+            self.voxelMaterial.transparency = alpha
         }
-        guard let voxelDataObjects = fetchedResultsController.fetchedObjects else {
-            print ("No Voxel Data objects found")
-            return
-        }
-        if voxelDataObjects.count > 0 {
-            restoreButton.isEnabled = true
-        }
-        guard let voxelDataObject = voxelDataObjects.first else { return }
-        
-        DataController.shared.voxelDataStored = voxelDataObject
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.environmentTexturing = .automatic
-        sceneView.session.run(configuration)
-        //sceneView.debugOptions = [.showFeaturePoints]
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        sceneView.session.pause()
-    }
-    
-
-    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        updateCameraInfo()
-        let locatorPosition = cameraInfo.pos + cameraInfo.dir * simd_float3(1,0,1)
-        if !voxelGridLocator.placed {
-            let newPosition = SCNVector3(locatorPosition.x, locatorPosition.y - 0.5, locatorPosition.z)
-            voxelGridLocator.node!.position = SCNVector3.lerp(voxelGridLocator.node!.position, newPosition, 0.1)
-        }
-        
-        if trackingStateIsNormal {
-            if snapping {
-                updateCursorDistance()
-            }
-            root!.childNodes[3].position = SCNVector3(cameraInfo.pos + cameraInfo.dir * voxelCursorDistance + simd_float3(0,0.04,0))
-            if isDrawing {
-                drawVoxel()
-            }
-            if isErasing {
-                drawVoxel(delete: true)
-            }
-        }
+        uiAlphaAnimator.startAnimation()
     }
     
     
-    func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
-        print("Tracking state: \(camera.trackingState)")
-        
-        switch camera.trackingState{
-        case .normal :
-            trackingStateIsNormal = true
-            break
-        default :
-            trackingStateIsNormal = false
-            break
-        }
-    }
     
-    func session(_ session: ARSession, didUpdate frame: ARFrame) {
-        if snapping {
-            guard let featurePoints = frame.rawFeaturePoints else { return }
-            let featurePointsGeometry = PointCloudGeometry.pointCloudGeometry(for: featurePoints.points)
-            root!.childNodes[5].geometry = featurePointsGeometry
-        }
-        
-    }
-    func session(_ session: ARSession, didFailWithError error: Error) {
-        // Present an error message to the user
-        
-    }
-    
-    func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay
-        
-    }
-    
-    func sessionInterruptionEnded(_ session: ARSession) {
-        // Reset tracking and/or remove existing anchors if consistent tracking is required
-        
-    }
 }
+
