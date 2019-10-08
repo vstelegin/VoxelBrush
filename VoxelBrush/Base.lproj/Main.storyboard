@@ -35,9 +35,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="906"/>
                             </arscnView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gnQ-2S-vlP" userLabel="EraseButton" customClass="RoundedButton" customModule="VoxelBrush" customModuleProvider="target">
-                                <rect key="frame" x="97" y="732" width="50" height="80"/>
+                                <rect key="frame" x="97" y="722" width="50" height="90"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" identifier="drawButtonHeight" id="BDv-Qq-7bI"/>
+                                    <constraint firstAttribute="height" constant="90" identifier="drawButtonHeight" id="BDv-Qq-7bI"/>
                                     <constraint firstAttribute="width" constant="50" identifier="drawButtonWidth" id="Mll-NT-xdf"/>
                                 </constraints>
                                 <color key="tintColor" red="0.96634548899999995" green="0.20591744779999999" blue="0.20591744779999999" alpha="0.25" colorSpace="custom" customColorSpace="displayP3"/>
@@ -65,10 +65,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S60-AT-5Is" userLabel="PlusButton" customClass="RoundedButton" customModule="VoxelBrush" customModuleProvider="target">
-                                <rect key="frame" x="267" y="732" width="50" height="35"/>
+                                <rect key="frame" x="267" y="722" width="50" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" identifier="drawButtonWidth" id="BF7-kt-1Jr"/>
-                                    <constraint firstAttribute="height" constant="35" identifier="drawButtonHeight" id="hj6-2U-eW1"/>
+                                    <constraint firstAttribute="height" constant="40" identifier="drawButtonHeight" id="hj6-2U-eW1"/>
                                 </constraints>
                                 <color key="tintColor" white="0.5" alpha="0.25" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="➕"/>
@@ -94,10 +94,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oTz-JU-6qc" userLabel="MinusButton" customClass="RoundedButton" customModule="VoxelBrush" customModuleProvider="target">
-                                <rect key="frame" x="267" y="777" width="50" height="35"/>
+                                <rect key="frame" x="267" y="772" width="50" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" identifier="drawButtonWidth" id="GFV-ch-36O"/>
-                                    <constraint firstAttribute="height" constant="35" identifier="drawButtonHeight" id="icY-ns-IOg"/>
+                                    <constraint firstAttribute="height" constant="40" identifier="drawButtonHeight" id="icY-ns-IOg"/>
                                 </constraints>
                                 <color key="tintColor" white="0.5" alpha="0.25" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="➖"/>
@@ -123,10 +123,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PwU-fA-wyn" userLabel="SaveButton" customClass="RoundedButton" customModule="VoxelBrush" customModuleProvider="target">
-                                <rect key="frame" x="349" y="777" width="50" height="35"/>
+                                <rect key="frame" x="349" y="772" width="50" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="d5j-f5-fs3"/>
-                                    <constraint firstAttribute="height" constant="35" id="mZD-Bn-h5V"/>
+                                    <constraint firstAttribute="height" constant="40" id="mZD-Bn-h5V"/>
                                 </constraints>
                                 <color key="tintColor" white="0.5" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="💾"/>
@@ -146,10 +146,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RHH-zW-kWk" userLabel="DrawButton" customClass="ScrollableButton" customModule="VoxelBrush" customModuleProvider="target">
-                                <rect key="frame" x="169.5" y="732" width="75" height="80"/>
+                                <rect key="frame" x="169.5" y="722" width="75" height="90"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="75" identifier="drawButtonWidth" id="79h-uN-OvE"/>
-                                    <constraint firstAttribute="height" constant="80" identifier="drawButtonHeight" id="JiP-5V-Jad"/>
+                                    <constraint firstAttribute="height" constant="90" identifier="drawButtonHeight" id="JiP-5V-Jad"/>
                                 </constraints>
                                 <color key="tintColor" red="0.20591744780540466" green="0.46937686204910278" blue="0.96634548902511597" alpha="0.25" colorSpace="custom" customColorSpace="displayP3"/>
                                 <userDefinedRuntimeAttributes>
@@ -178,10 +178,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FHK-Dh-KXg" userLabel="ResetButton" customClass="RoundedButton" customModule="VoxelBrush" customModuleProvider="target">
-                                <rect key="frame" x="349" y="732" width="50" height="35"/>
+                                <rect key="frame" x="349" y="722" width="50" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="i9B-52-XiX"/>
-                                    <constraint firstAttribute="height" constant="35" id="xuo-gP-UO2"/>
+                                    <constraint firstAttribute="height" constant="40" id="xuo-gP-UO2"/>
                                 </constraints>
                                 <color key="tintColor" white="0.5" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="❌"/>
@@ -198,9 +198,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hKg-gR-h9V" userLabel="SymmetryButton" customClass="RoundedButton" customModule="VoxelBrush" customModuleProvider="target">
-                                <rect key="frame" x="15" y="777" width="50" height="35"/>
+                                <rect key="frame" x="15" y="772" width="50" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="X1r-yj-slg"/>
+                                    <constraint firstAttribute="height" constant="40" id="X1r-yj-slg"/>
                                     <constraint firstAttribute="width" constant="50" id="u0c-k3-e2U"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
@@ -221,10 +221,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DI6-7e-qn2" userLabel="UndoButton" customClass="RoundedButton" customModule="VoxelBrush" customModuleProvider="target">
-                                <rect key="frame" x="15" y="687" width="50" height="35"/>
+                                <rect key="frame" x="15" y="672" width="50" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="Gj8-Zf-Yc7"/>
-                                    <constraint firstAttribute="height" constant="35" id="QNc-Zd-cv4"/>
+                                    <constraint firstAttribute="height" constant="40" id="QNc-Zd-cv4"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="tintColor" white="0.5" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -273,14 +273,14 @@
                                     <action selector="restore" destination="BV1-FR-VrT" eventType="touchDown" id="tOW-rv-15y"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9FY-vs-lMo" userLabel="multiUserButton">
+                            <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9FY-vs-lMo" userLabel="multiUserButton">
                                 <rect key="frame" x="364" y="60" width="35" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="JLg-UI-Dbw" userLabel="height"/>
                                     <constraint firstAttribute="width" constant="35" id="sqg-KU-iGz" userLabel="width"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="tintColor" systemColor="systemGreenColor" red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" backgroundImage="arrow.right.arrow.left.square" catalog="system"/>
                                 <state key="disabled">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -304,9 +304,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TRP-DV-ANW" userLabel="SnapButton" customClass="RoundedButton" customModule="VoxelBrush" customModuleProvider="target">
-                                <rect key="frame" x="15" y="732" width="50" height="35"/>
+                                <rect key="frame" x="15" y="722" width="50" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="Myx-2i-IRL"/>
+                                    <constraint firstAttribute="height" constant="40" id="Myx-2i-IRL"/>
                                     <constraint firstAttribute="width" constant="50" id="hjQ-4Q-r11"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
@@ -334,6 +334,29 @@
                                     <action selector="symmetryButtonReleased" destination="BV1-FR-VrT" eventType="touchUpOutside" id="6hX-yf-4Az"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sJB-9f-aec" userLabel="TrackingIndicatorView" customClass="TrackingIndicatorView" customModule="VoxelBrush" customModuleProvider="target">
+                                <rect key="frame" x="137" y="325" width="140" height="120"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="viewfinder" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Xmi-Ml-kIM" userLabel="TrackingIndicator">
+                                        <rect key="frame" x="20" y="11.5" width="100" height="97"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="i2F-61-rX2"/>
+                                            <constraint firstAttribute="width" constant="100" id="ojx-JS-tlG"/>
+                                        </constraints>
+                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="thin"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="140" id="53L-Lc-Z2o"/>
+                                    <constraint firstAttribute="height" constant="120" id="6v2-a2-Pc2"/>
+                                    <constraint firstItem="Xmi-Ml-kIM" firstAttribute="centerY" secondItem="sJB-9f-aec" secondAttribute="centerY" id="9Cl-2z-TFV"/>
+                                    <constraint firstItem="Xmi-Ml-kIM" firstAttribute="centerX" secondItem="sJB-9f-aec" secondAttribute="centerX" id="b67-5a-Z4H"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="trackingIndicatorCenterConstraint" destination="b67-5a-Z4H" id="4hZ-mR-xio"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -341,6 +364,7 @@
                             <constraint firstItem="9FY-vs-lMo" firstAttribute="top" secondItem="fQZ-KI-GVf" secondAttribute="top" constant="15" id="50p-zJ-sT5"/>
                             <constraint firstItem="PwU-fA-wyn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oTz-JU-6qc" secondAttribute="trailing" constant="10" id="5in-vE-HQM"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="centerY" secondItem="fQZ-KI-GVf" secondAttribute="centerY" id="A6F-SX-6t1"/>
+                            <constraint firstItem="sJB-9f-aec" firstAttribute="centerY" secondItem="fQZ-KI-GVf" secondAttribute="centerY" multiplier="0.85" id="EBo-md-yWj"/>
                             <constraint firstItem="gnQ-2S-vlP" firstAttribute="centerY" secondItem="RHH-zW-kWk" secondAttribute="centerY" id="HkN-IP-Xsg"/>
                             <constraint firstItem="fQZ-KI-GVf" firstAttribute="bottom" secondItem="hKg-gR-h9V" secondAttribute="bottom" constant="50" id="IX8-Zt-nYs"/>
                             <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="9FY-vs-lMo" secondAttribute="trailing" constant="15" id="IhO-Pd-cFb"/>
@@ -357,6 +381,7 @@
                             <constraint firstItem="TRP-DV-ANW" firstAttribute="top" secondItem="DI6-7e-qn2" secondAttribute="bottom" constant="10" id="aPj-eb-8yl"/>
                             <constraint firstItem="oTz-JU-6qc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="RHH-zW-kWk" secondAttribute="trailing" constant="10" id="eZo-Ls-6CF"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="centerX" secondItem="fQZ-KI-GVf" secondAttribute="centerX" id="eoj-nG-MfH"/>
+                            <constraint firstItem="sJB-9f-aec" firstAttribute="centerX" secondItem="fQZ-KI-GVf" secondAttribute="centerX" id="ffj-yc-bef"/>
                             <constraint firstItem="PwU-fA-wyn" firstAttribute="trailing" secondItem="fQZ-KI-GVf" secondAttribute="trailing" priority="800" constant="-15" id="fgt-DL-duU"/>
                             <constraint firstItem="FHK-Dh-KXg" firstAttribute="centerX" secondItem="PwU-fA-wyn" secondAttribute="centerX" id="gdD-IC-0sK"/>
                             <constraint firstItem="S60-AT-5Is" firstAttribute="centerX" secondItem="oTz-JU-6qc" secondAttribute="centerX" id="jAq-7j-jXI"/>
@@ -387,6 +412,7 @@
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
                         <outlet property="snapButton" destination="TRP-DV-ANW" id="ySu-KE-pTU"/>
                         <outlet property="symmetryButton" destination="hKg-gR-h9V" id="1Ks-31-yt3"/>
+                        <outlet property="trackingIndicatorView" destination="sJB-9f-aec" id="LoI-rr-J4r"/>
                         <outlet property="undoButton" destination="DI6-7e-qn2" id="n7g-xh-SKl"/>
                         <segue destination="IiY-4b-BNt" kind="presentation" identifier="showSavedFiles" customClass="SegueRightToLeft" customModule="VoxelBrush" customModuleProvider="target" modalPresentationStyle="overFullScreen" id="fxb-S6-8zR"/>
                     </connections>
@@ -532,5 +558,6 @@
         <image name="folder" catalog="system" width="64" height="48"/>
         <image name="square.and.pencil" catalog="system" width="64" height="58"/>
         <image name="trash" catalog="system" width="60" height="64"/>
+        <image name="viewfinder" catalog="system" width="64" height="58"/>
     </resources>
 </document>

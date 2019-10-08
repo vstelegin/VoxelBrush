@@ -27,6 +27,7 @@ class BrushViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegat
     @IBOutlet var minusButton : RoundedButton!
     @IBOutlet var resetButton : RoundedButton!
     @IBOutlet var multiUserButton : UIButton!
+    @IBOutlet var trackingIndicatorView : UIView!
     var trackingStateIsNormal = false {
         didSet {
             guard self.trackingStateIsNormal != oldValue else{
@@ -246,8 +247,6 @@ class BrushViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegat
     }
     
     @IBAction func symmetryButtonPressed(){
-        //symmetryButton.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2.0)
-        
         if symmetryMode {
             symmetryTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: {_ in
                 let feedback = UIImpactFeedbackGenerator()
@@ -386,9 +385,10 @@ class BrushViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegat
         sceneView.delegate = self
         sceneView.session.delegate = self
         sceneView.showsStatistics = true
-        
+  
         sceneSetup()
         brushSizeChange()
+        
         DataController.shared.fetch()
         DataController.shared.setNewID()
         
@@ -653,14 +653,10 @@ class BrushViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegat
     }
     
     func updateCursorDistance(){
-//        let location = CGPoint(x: 0.5, y: 0.5)
-//        let hit = sceneView.hitTest(location, types: [.featurePoint])
-//        guard hit.count > 0 else {return}
         let hitDistance = pointCloudRayCast()
         if hitDistance > 0 {
             voxelCursorDistance = hitDistance
         }
-        
     }
     
     func pointCloudRayCast() -> Float{
@@ -669,6 +665,7 @@ class BrushViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegat
         let points = pointCloud.points
         return rayAdvance(points, 0.3)
     }
+    
     func rayAdvance(_ points : [vector_float3], _ rayDistance : Float) -> Float{
 
         if rayDistance > 3.0 {
@@ -700,11 +697,9 @@ class BrushViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegat
             self.minusButton.alpha = alpha
             self.resetButton.alpha = alpha
             self.voxelMaterial.transparency = alpha
+            self.trackingIndicatorView.alpha = 1 - alpha
         }
         uiAlphaAnimator.startAnimation()
     }
-    
-    
-    
 }
 

@@ -61,7 +61,7 @@ class DataController {
     
     func setNewID(){
         if let newID = fetchedResultsController.fetchedObjects?.count {
-            id = Int32(newID)
+            id = Int32(newID + 1)
             debugPrint(newID)
         }
     }

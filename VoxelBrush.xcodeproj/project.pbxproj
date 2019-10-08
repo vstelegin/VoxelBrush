@@ -20,6 +20,7 @@
 		06476F702317A51C007CA208 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06476F6E2317A51C007CA208 /* Main.storyboard */; };
 		06476F752317A520007CA208 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06476F732317A520007CA208 /* LaunchScreen.storyboard */; };
 		0653F05A2329983E00042E50 /* ScrollableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0653F0592329983E00042E50 /* ScrollableButton.swift */; };
+		06544028234BC0D9008972C1 /* TrackingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06544027234BC0D9008972C1 /* TrackingIndicatorView.swift */; };
 		06551AA72332C5E700798C5E /* GCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06551AA62332C5E700798C5E /* GCD.swift */; };
 		0689D0262320E260006E3141 /* VoxelData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0689D0242320E260006E3141 /* VoxelData.xcdatamodeld */; };
 		0689D0282320E33B006E3141 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689D0272320E33B006E3141 /* DataController.swift */; };
@@ -47,6 +48,7 @@
 		06476F742317A520007CA208 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		06476F762317A520007CA208 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0653F0592329983E00042E50 /* ScrollableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableButton.swift; sourceTree = "<group>"; };
+		06544027234BC0D9008972C1 /* TrackingIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingIndicatorView.swift; sourceTree = "<group>"; };
 		06551AA62332C5E700798C5E /* GCD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCD.swift; sourceTree = "<group>"; };
 		0689D0252320E260006E3141 /* VoxelData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VoxelData.xcdatamodel; sourceTree = "<group>"; };
 		0689D0272320E33B006E3141 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 		06FF30E12344181400575C02 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				06544027234BC0D9008972C1 /* TrackingIndicatorView.swift */,
 				061941AE231F456000E2969E /* RoundedButton.swift */,
 				0653F0592329983E00042E50 /* ScrollableButton.swift */,
 				06FF30DC2342D6E600575C02 /* SegueRightToLeft.swift */,
@@ -239,6 +242,7 @@
 				0607AEE323452C2C009B6572 /* ModelCell.swift in Sources */,
 				069A21322322525200A55D9C /* VoxelCursor.swift in Sources */,
 				063E128D233AFDA60059A657 /* PointCloudGeometry.swift in Sources */,
+				06544028234BC0D9008972C1 /* TrackingIndicatorView.swift in Sources */,
 				06EC676E2346C3C500D11333 /* RoundedView.swift in Sources */,
 				061941AD231F3C9100E2969E /* TypeExtensions.swift in Sources */,
 				06296222234762D0000181B2 /* DataReceiver.swift in Sources */,
@@ -402,7 +406,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9;
+				MARKETING_VERSION = 0.91;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ViatcheslavTelegin.VoxelBrush;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -422,7 +426,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9;
+				MARKETING_VERSION = 0.91;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ViatcheslavTelegin.VoxelBrush;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

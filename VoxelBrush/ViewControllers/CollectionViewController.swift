@@ -28,7 +28,7 @@ class CollectionViewController : UIViewController {
     @IBOutlet weak var collectionView : UICollectionView!
     @IBOutlet weak var deleteButton : UIButton!
     @IBAction func addNewModel(){
-        DataController.shared.id = Int32(DataController.shared.fetchedResultsController.fetchedObjects!.count + 1)
+        DataController.shared.setNewID()
         needsReset = true
         backToDrawing()
     }
