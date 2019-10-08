@@ -15,7 +15,6 @@ import MultipeerConnectivity
 
 class BrushViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, NSFetchedResultsControllerDelegate {
     @IBOutlet var sceneView: ARSCNView!
-    @IBOutlet var blurView: UIVisualEffectView!
     @IBOutlet var saveButton : RoundedButton!
     @IBOutlet var drawButton : ScrollableButton!
     @IBOutlet var eraseButton : RoundedButton!
@@ -62,12 +61,7 @@ class BrushViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegat
     var snapping = false
     var snappingTimer : Timer?
     var voxelPositionChanged = false
-    var voxelCursorDistance : Float = 0.5 {
-        didSet{
-            //print("Cursor distance: \(voxelCursorDistance)")
-            //voxelCursorDistance = Float.lerp (voxelCursorDistance, oldValue, 0.05)
-        }
-    }
+    var voxelCursorDistance : Float = 0.5
     var drawButtonAnimator : UIViewPropertyAnimator?
     var root : SCNNode?
     var voxelPosition = simd_float3(){
@@ -92,12 +86,6 @@ class BrushViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegat
     let scaleFactor : Float = 0.02
     
     var multipeerSession : MultipeerSession!
-    @IBAction func tap(_ sender: UITapGestureRecognizer){
-//        if trackingStateIsNormal {
-//            voxelGridLocator.placed = !voxelGridLocator.placed
-//        }
-//        root!.childNodes[3].isHidden = !root!.childNodes[3].isHidden
-    }
     
     @IBAction func snapButtonPressed(){
         if !snapping {
@@ -440,8 +428,6 @@ class BrushViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegat
     
     
     func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
-        print("Tracking state: \(camera.trackingState)")
-        
         switch camera.trackingState{
         case .normal :
             trackingStateIsNormal = true
@@ -685,8 +671,8 @@ class BrushViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegat
     
     func animateUIAlpha(show : Bool, _ duration: Float = 0.5){
         let duration = TimeInterval(duration)
+        let alpha : CGFloat = show ? 1.0 : 0.0
         let uiAlphaAnimator = UIViewPropertyAnimator(duration: duration, curve: .easeInOut){
-            let alpha : CGFloat = show ? 1.0 : 0.0
             self.saveButton.alpha = alpha
             self.drawButton.alpha = alpha
             self.eraseButton.alpha = alpha
@@ -696,9 +682,14 @@ class BrushViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegat
             self.plusButton.alpha = alpha
             self.minusButton.alpha = alpha
             self.resetButton.alpha = alpha
-            self.voxelMaterial.transparency = alpha
             self.trackingIndicatorView.alpha = 1 - alpha
         }
+        let sceneAlphaAnimator = UIViewPropertyAnimator(duration: duration, curve: .easeInOut){
+            self.voxelMaterial.transparency = alpha
+        }
+        uiAlphaAnimator.addCompletion({_ in
+            sceneAlphaAnimator.startAnimation()
+        })
         uiAlphaAnimator.startAnimation()
     }
 }

@@ -395,9 +395,6 @@
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="width" secondItem="fQZ-KI-GVf" secondAttribute="width" id="yxa-cx-mlg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="IVJ-dN-9jF" appends="YES" id="JZd-Ji-CEZ"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="qJi-j8-3Dc"/>
                     <connections>
@@ -417,12 +414,6 @@
                         <segue destination="IiY-4b-BNt" kind="presentation" identifier="showSavedFiles" customClass="SegueRightToLeft" customModule="VoxelBrush" customModuleProvider="target" modalPresentationStyle="overFullScreen" id="fxb-S6-8zR"/>
                     </connections>
                 </viewController>
-                <tapGestureRecognizer id="IVJ-dN-9jF">
-                    <connections>
-                        <action selector="tap:" destination="BV1-FR-VrT" id="Z5F-Gu-S63"/>
-                        <outlet property="delegate" destination="U0K-SW-4ec" id="cRc-sp-RXa"/>
-                    </connections>
-                </tapGestureRecognizer>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-204.34782608695653" y="62.946428571428569"/>
